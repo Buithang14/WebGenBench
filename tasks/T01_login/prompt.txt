@@ -1,0 +1,28 @@
+Hãy tạo một trang giao diện Đăng nhập (Login Form) hiện đại, chuyên nghiệp và responsive.
+
+Yêu cầu cấu trúc file:
+- Bạn BẮT BUỘC phải tạo trực tiếp 3 file sau ngay tại thư mục gốc của dự án:
+  1. index.html
+  2. style.css
+  3. script.js
+- TUYỆT ĐỐI KHÔNG tạo thư mục con lồng bên trong (như src/, public/, app/...). Cả 3 file phải nằm ở thư mục root.
+
+Yêu cầu giao diện (UI):
+1. Bố cục: Nền trang sáng màu, thanh lịch. Khung đăng nhập (card) được căn chính giữa màn hình theo cả 2 trục.
+2. Tiêu đề: Có tiêu đề chào mừng "Đăng nhập tài khoản" hoặc "Sign In to Your Account" kèm phụ đề ngắn.
+3. Trường nhập Email: Có thẻ <label> rõ ràng, thuộc tính type="email", placeholder hợp lý, hỗ trợ accessibility.
+4. Trường nhập Mật khẩu: Có thẻ <label>, nút hoặc icon chuyển đổi ẩn/hiện mật khẩu (toggle show/hide password).
+5. Tùy chọn bổ sung: Có ô checkbox "Ghi nhớ đăng nhập" (Remember me) và liên kết "Quên mật khẩu?" (Forgot password).
+6. Nút hành động: Nút "Đăng nhập" (Sign In) màu sắc nổi bật (primary button) với hiệu ứng hover mượt mà.
+7. Responsive: Hoạt động trơn tru trên màn hình di động (375px), máy tính bảng (768px) và màn hình rộng (1440px).
+
+Yêu cầu kỹ thuật:
+- Sử dụng mã HTML5 ngữ nghĩa, hợp chuẩn W3C, hỗ trợ tốt cho Accessibility (ARIA attributes nếu cần).
+- CSS thuần trong style.css: Sử dụng Flexbox hoặc Grid, font chữ hiện đại (sans-serif), bóng đổ card mềm mại, hiệu ứng focus input rõ ràng.
+- JavaScript thuần trong script.js:
+  + Bắt sự kiện submit của form.
+  + Kiểm tra tính hợp lệ của email (đúng định dạng) và mật khẩu (tối thiểu 6 ký tự, không để trống).
+  + Hiển thị thông báo lỗi trực quan ngay dưới từng trường khi dữ liệu không hợp lệ.
+  + Không reload trang khi submit và hiển thị trạng thái đăng nhập thành công khi dữ liệu hợp lệ.
+- Không sử dụng bất kỳ thư viện hoặc framework bên ngoài nào (không dùng Bootstrap, Tailwind, jQuery, React...).
+

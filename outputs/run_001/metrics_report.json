@@ -1,0 +1,123 @@
+{
+  "run_id": "run_001",
+  "task_id": "T01",
+  "total_score": 91.94,
+  "weights": {
+    "html_validity": 0.15,
+    "accessibility": 0.2,
+    "responsive": 0.2,
+    "design_similarity": 0.25,
+    "code_quality": 0.1,
+    "runtime_cleanliness": 0.1
+  },
+  "metrics": {
+    "html_validity": {
+      "score": 100.0,
+      "weight": 0.15,
+      "weighted_contribution": 15.0,
+      "raw_value": {
+        "has_doctype": true,
+        "has_lang": true,
+        "has_charset": true,
+        "has_viewport": true,
+        "has_title": true,
+        "duplicate_ids": [],
+        "semantic_tags_found": [
+          "main",
+          "section",
+          "header",
+          "form"
+        ]
+      },
+      "issues": []
+    },
+    "accessibility": {
+      "score": 87.0,
+      "weight": 0.2,
+      "weighted_contribution": 17.4,
+      "raw_value": {
+        "total_inputs": 3,
+        "unlabeled_inputs_count": 0,
+        "total_images": 0,
+        "missing_alt_images_count": 0,
+        "total_buttons": 3,
+        "has_h1": true,
+        "aria_elements_count": 11
+      },
+      "issues": [
+        "[Kích thước vùng bấm] Vùng bấm tương tác quá nhỏ (16x16px < 24x24px chuẩn WCAG) tại INPUT#remember",
+        "[Kích thước vùng bấm] Vùng bấm tương tác quá nhỏ (107x20px < 24x24px chuẩn WCAG) tại A.forgot",
+        "[Trạng thái tương tác] Nút điều khiển hiển thị icon mâu thuẫn (không rõ ràng trạng thái ẩn/hiện)."
+      ]
+    },
+    "responsive": {
+      "score": 95.0,
+      "weight": 0.2,
+      "weighted_contribution": 19.0,
+      "raw_value": {
+        "has_media_query": true,
+        "has_flex": true,
+        "has_grid": true,
+        "viewports_evaluated": [
+          "375",
+          "768",
+          "1440"
+        ]
+      },
+      "issues": [
+        "[Lỗi hiển thị icon] Nút điều khiển hiển thị đồng thời 2 icon (ví dụ: cả 2 icon mắt ẩn/hiện cùng hiện gây biến dạng giao diện) tại BUTTON.toggle-password"
+      ]
+    },
+    "design_similarity": {
+      "score": 88.15,
+      "weight": 0.25,
+      "weighted_contribution": 22.04,
+      "raw_value": {
+        "full_frame_score": 96.39,
+        "roi_ssim": 68.78,
+        "roi_hist": 99.61,
+        "roi_aspect_ratio_sim": 95.11,
+        "roi_composite_score": 84.61,
+        "card_bbox_detected": {
+          "x": 465,
+          "y": 143,
+          "w": 510,
+          "h": 642
+        }
+      },
+      "issues": [
+        "Cấu trúc nội dung chi tiết trong Card có sự khác biệt (ROI SSIM: 68.8%)."
+      ]
+    },
+    "code_quality": {
+      "score": 85.0,
+      "weight": 0.1,
+      "weighted_contribution": 8.5,
+      "raw_value": {
+        "has_html": true,
+        "has_css": true,
+        "has_js": true,
+        "inline_styles_count": 0,
+        "inline_events_count": 0,
+        "has_css_vars": true,
+        "has_event_listener": true
+      },
+      "issues": [
+        "[Thiếu quy tắc ẩn trạng thái] Phần tử svg.icon-eye-off mang thuộc tính 'hidden' nhưng CSS thiếu quy tắc [hidden] { display: none; } hoặc .icon-eye-off { display: none; }.",
+        "[Lỗi điều khiển trạng thái] Nút điều khiển hiển thị đồng thời 2 icon (ví dụ: cả 2 icon mắt ẩn/hiện cùng hiện gây biến dạng giao diện) tại BUTTON.toggle-password."
+      ]
+    },
+    "runtime_cleanliness": {
+      "score": 100.0,
+      "weight": 0.1,
+      "weighted_contribution": 10.0,
+      "raw_value": {
+        "page_errors_count": 0,
+        "console_errors_count": 0,
+        "failed_requests_count": 0,
+        "console_warnings_count": 0
+      },
+      "issues": []
+    }
+  }
+}

@@ -1,0 +1,17 @@
+# Cấu hình môi trường và tham số thực thi chung cho WebGenBench trên Windows
+
+executables:
+  cursor: "E:\\kì 2 năm 4\\NCKH\\Cursor\\cursor\\Cursor.exe"
+  windsurf: "C:\\Users\\Admin\\AppData\\Local\\Programs\\windsurf\\Windsurf.exe"
+  vscode: "C:\\Users\\Admin\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe"
+
+timing:
+  timeout_seconds: 180
+  quiet_period_seconds: 10
+  cooldown_seconds: 10
+
+viewports:
+  - 375
+  - 768
+  - 1440
+

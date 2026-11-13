@@ -1,0 +1,21 @@
+{
+  "run_id": "run_001",
+  "ide": "cursor",
+  "agent": "cursor_agent",
+  "model": "auto",
+  "task_id": "T01",
+  "condition": "text_only",
+  "start_time": "2026-11-07T21:28:08.319706",
+  "duration_seconds": 97.17,
+  "status": "SUCCESS",
+  "files": [
+    "index.html",
+    "script.js",
+    "style.css"
+  ],
+  "entry_html": "index.html",
+  "total_loc": 566,
+  "sha256_hash": "98dbe261aae28c609390fafe0dc615782524ec52db2497c0da60de0e2f593c8a",
+  "error_message": null,
+  "prompt": "Hãy tạo một trang giao diện Đăng nhập (Login Form) hiện đại, chuyên nghiệp và responsive.\n\nYêu cầu cấu trúc file:\n- Bạn BẮT BUỘC phải tạo trực tiếp 3 file sau ngay tại thư mục gốc của dự án:\n  1. index.html\n  2. style.css\n  3. script.js\n- TUYỆT ĐỐI KHÔNG tạo thư mục con lồng bên trong (như src/, public/, app/...). Cả 3 file phải nằm ở thư mục root.\n\nYêu cầu giao diện (UI):\n1. Bố cục: Nền trang sáng màu, thanh lịch. Khung đăng nhập (card) được căn chính giữa màn hình theo cả 2 trục.\n2. Tiêu đề: Có tiêu đề chào mừng \"Đăng nhập tài khoản\" hoặc \"Sign In to Your Account\" kèm phụ đề ngắn.\n3. Trường nhập Email: Có thẻ <label> rõ ràng, thuộc tính type=\"email\", placeholder hợp lý, hỗ trợ accessibility.\n4. Trường nhập Mật khẩu: Có thẻ <label>, nút hoặc icon chuyển đổi ẩn/hiện mật khẩu (toggle show/hide password).\n5. Tùy chọn bổ sung: Có ô checkbox \"Ghi nhớ đăng nhập\" (Remember me) và liên kết \"Quên mật khẩu?\" (Forgot password).\n6. Nút hành động: Nút \"Đăng nhập\" (Sign In) màu sắc nổi bật (primary button) với hiệu ứng hover mượt mà.\n7. Responsive: Hoạt động trơn tru trên màn hình di động (375px), máy tính bảng (768px) và màn hình rộng (1440px).\n\nYêu cầu kỹ thuật:\n- Sử dụng mã HTML5 ngữ nghĩa, hợp chuẩn W3C, hỗ trợ tốt cho Accessibility (ARIA attributes nếu cần).\n- CSS thuần trong style.css: Sử dụng Flexbox hoặc Grid, font chữ hiện đại (sans-serif), bóng đổ card mềm mại, hiệu ứng focus input rõ ràng.\n- JavaScript thuần trong script.js:\n  + Bắt sự kiện submit của form.\n  + Kiểm tra tính hợp lệ của email (đúng định dạng) và mật khẩu (tối thiểu 6 ký tự, không để trống).\n  + Hiển thị thông báo lỗi trực quan ngay dưới từng trường khi dữ liệu không hợp lệ.\n  + Không reload trang khi submit và hiển thị trạng thái đăng nhập thành công khi dữ liệu hợp lệ.\n- Không sử dụng bất kỳ thư viện hoặc framework bên ngoài nào (không dùng Bootstrap, Tailwind, jQuery, React...)."
+}

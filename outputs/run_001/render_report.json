@@ -1,0 +1,180 @@
+{
+  "run_id": "run_001",
+  "entry_html": "index.html",
+  "server_url": "http://127.0.0.1:64450/index.html",
+  "screenshots": {
+    "375": "E:/WEBGENBENCH/outputs/run_001/screenshots/viewport_375px.png",
+    "768": "E:/WEBGENBENCH/outputs/run_001/screenshots/viewport_768px.png",
+    "1440": "E:/WEBGENBENCH/outputs/run_001/screenshots/viewport_1440px.png"
+  },
+  "dom_metrics": {
+    "375": {
+      "scrollWidth": 375,
+      "clientWidth": 375,
+      "has_horizontal_overflow": false,
+      "element_issues": [],
+      "layout_issues": [
+        {
+          "type": "MULTIPLE_VISIBLE_ICONS",
+          "target": "BUTTON.toggle-password",
+          "message": "Nút điều khiển hiển thị đồng thời 2 icon (ví dụ: cả 2 icon mắt ẩn/hiện cùng hiện gây biến dạng giao diện)",
+          "details": [
+            {
+              "tag": "svg",
+              "className": "icon-eye",
+              "w": 20,
+              "h": 20,
+              "top": 469
+            },
+            {
+              "tag": "svg",
+              "className": "icon-eye-off",
+              "w": 20,
+              "h": 20,
+              "top": 489
+            }
+          ]
+        },
+        {
+          "type": "TOUCH_TARGET_TOO_SMALL",
+          "target": "INPUT#remember",
+          "message": "Vùng bấm tương tác quá nhỏ (16x16px < 24x24px chuẩn WCAG)",
+          "details": {
+            "w": 16,
+            "h": 16
+          }
+        },
+        {
+          "type": "TOUCH_TARGET_TOO_SMALL",
+          "target": "A.forgot",
+          "message": "Vùng bấm tương tác quá nhỏ (107x20px < 24x24px chuẩn WCAG)",
+          "details": {
+            "w": 106.984375,
+            "h": 20
+          }
+        }
+      ],
+      "contrast_issues": [],
+      "main_card_bbox": {
+        "left": 16,
+        "top": 127,
+        "width": 343,
+        "height": 558
+      }
+    },
+    "768": {
+      "scrollWidth": 768,
+      "clientWidth": 768,
+      "has_horizontal_overflow": false,
+      "element_issues": [],
+      "layout_issues": [
+        {
+          "type": "MULTIPLE_VISIBLE_ICONS",
+          "target": "BUTTON.toggle-password",
+          "message": "Nút điều khiển hiển thị đồng thời 2 icon (ví dụ: cả 2 icon mắt ẩn/hiện cùng hiện gây biến dạng giao diện)",
+          "details": [
+            {
+              "tag": "svg",
+              "className": "icon-eye",
+              "w": 20,
+              "h": 20,
+              "top": 578
+            },
+            {
+              "tag": "svg",
+              "className": "icon-eye-off",
+              "w": 20,
+              "h": 20,
+              "top": 598
+            }
+          ]
+        },
+        {
+          "type": "TOUCH_TARGET_TOO_SMALL",
+          "target": "INPUT#remember",
+          "message": "Vùng bấm tương tác quá nhỏ (16x16px < 24x24px chuẩn WCAG)",
+          "details": {
+            "w": 16,
+            "h": 16
+          }
+        },
+        {
+          "type": "TOUCH_TARGET_TOO_SMALL",
+          "target": "A.forgot",
+          "message": "Vùng bấm tương tác quá nhỏ (107x20px < 24x24px chuẩn WCAG)",
+          "details": {
+            "w": 106.984375,
+            "h": 20
+          }
+        }
+      ],
+      "contrast_issues": [],
+      "main_card_bbox": {
+        "left": 164,
+        "top": 224,
+        "width": 440,
+        "height": 576
+      }
+    },
+    "1440": {
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "has_horizontal_overflow": false,
+      "element_issues": [],
+      "layout_issues": [
+        {
+          "type": "MULTIPLE_VISIBLE_ICONS",
+          "target": "BUTTON.toggle-password",
+          "message": "Nút điều khiển hiển thị đồng thời 2 icon (ví dụ: cả 2 icon mắt ẩn/hiện cùng hiện gây biến dạng giao diện)",
+          "details": [
+            {
+              "tag": "svg",
+              "className": "icon-eye",
+              "w": 20,
+              "h": 20,
+              "top": 518
+            },
+            {
+              "tag": "svg",
+              "className": "icon-eye-off",
+              "w": 20,
+              "h": 20,
+              "top": 538
+            }
+          ]
+        },
+        {
+          "type": "TOUCH_TARGET_TOO_SMALL",
+          "target": "INPUT#remember",
+          "message": "Vùng bấm tương tác quá nhỏ (16x16px < 24x24px chuẩn WCAG)",
+          "details": {
+            "w": 16,
+            "h": 16
+          }
+        },
+        {
+          "type": "TOUCH_TARGET_TOO_SMALL",
+          "target": "A.forgot",
+          "message": "Vùng bấm tương tác quá nhỏ (107x20px < 24x24px chuẩn WCAG)",
+          "details": {
+            "w": 106.984375,
+            "h": 20
+          }
+        }
+      ],
+      "contrast_issues": [],
+      "main_card_bbox": {
+        "left": 490,
+        "top": 158,
+        "width": 460,
+        "height": 585
+      }
+    }
+  },
+  "runtime_errors": {
+    "console_errors": [],
+    "console_warnings": [],
+    "page_errors": [],
+    "failed_requests": []
+  }
+}

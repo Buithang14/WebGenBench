@@ -1,0 +1,9 @@
+# Trọng số đánh giá 6 nhóm tiêu chí (Tổng trọng số bắt buộc = 1.0)
+weights:
+  html_validity: 0.15
+  accessibility: 0.20
+  responsive: 0.20
+  design_similarity: 0.25
+  code_quality: 0.10
+  runtime_cleanliness: 0.10
+

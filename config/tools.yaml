@@ -1,0 +1,24 @@
+# Thông tin cấu hình cố định cho 3 công cụ IDE và AI Agent tương ứng
+
+tools:
+  cursor:
+    name: "Cursor"
+    agent_name: "Cursor Agent"
+    fixed_model: "claude-3-5-sonnet-20241022"
+    shortcut: "ctrl+i"
+    description: "IDE Cursor tích hợp Cursor Agent (Composer)"
+
+  windsurf:
+    name: "Windsurf"
+    agent_name: "Cascade"
+    fixed_model: "claude-3-5-sonnet"
+    shortcut: "ctrl+l"
+    description: "IDE Windsurf tích hợp Cascade Agent"
+
+  vscode:
+    name: "Visual Studio Code"
+    agent_name: "GitHub Copilot Agent"
+    fixed_model: "gpt-4o"
+    shortcut: "ctrl+shift+i"
+    description: "VS Code với GitHub Copilot Chat Agent"
+

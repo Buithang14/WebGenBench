@@ -1,0 +1,2 @@
+# Windsurf adapter package
+

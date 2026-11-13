@@ -1,0 +1,27 @@
+# Metadata cấu hình bài tập benchmark T01 - Login Form
+task_id: "T01"
+name: "Login Form"
+title_vi: "Giao diện đăng nhập hiện đại"
+prompt_file: "tasks/T01_login/prompt.txt"
+reference_image: "designs/T01_reference.png"
+expected_files:
+  - "index.html"
+  - "style.css"
+  - "script.js"
+
+ui_requirements:
+  - "Khung đăng nhập (card) được căn giữa màn hình cả theo chiều ngang và dọc."
+  - "Ô nhập Email có nhãn label rõ ràng và placeholder tương ứng."
+  - "Ô nhập Mật khẩu có nút hoặc biểu tượng toggle ẩn/hiện mật khẩu."
+  - "Ô tích chọn 'Ghi nhớ đăng nhập' (Remember me checkbox)."
+  - "Đường dẫn liên kết 'Quên mật khẩu?' (Forgot password link)."
+  - "Nút bấm 'Đăng nhập' (Sign In button) nổi bật, có hiệu ứng hover."
+  - "Giao diện co giãn đáp ứng (Responsive) tốt trên màn hình điện thoại 375px, tablet 768px và máy tính 1440px."
+
+technical_requirements:
+  - "Sử dụng HTML5 ngữ nghĩa (semantic HTML: <form>, <main>, <header>, <button>, <label>, <input>)."
+  - "Toàn bộ phong cách thiết kế định nghĩa trong file style.css thuần (không dùng Tailwind CDN, Bootstrap CDN)."
+  - "Toàn bộ logic tương tác và xác thực viết trong file script.js thuần (kiểm tra định dạng email và mật khẩu không để trống trước khi submit)."
+  - "Không sử dụng bất kỳ thư viện hay framework bên ngoài nào cần cài đặt qua npm/cdn."
+  - "Toàn bộ 3 file (index.html, style.css, script.js) phải được đặt trực tiếp tại thư mục gốc của workspace (không tạo thư mục con lồng bên trong)."
+
