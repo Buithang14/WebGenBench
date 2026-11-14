@@ -53,7 +53,7 @@ tab_single, tab_batch = st.tabs([
 # ==================== CHẾ ĐỘ 1: CHẠY THỬ 1 LƯỢT ====================
 with tab_single:
     st.markdown(f"""
-    <div style="display:flex; align-items:center; gap:8px; margin-bottom:12px;">
+    <div style="display:flex; align-items:center; gap:10px; padding-top:10px; margin-top:8px; margin-bottom:18px;">
         {get_svg("play", size=22, color="#0B57D0")}
         <span style="font-weight:700; font-size:1.15rem; color:#1F1F1F;">Thiết Lập Thực Nghiệm Đơn Lẻ</span>
     </div>
@@ -100,9 +100,9 @@ with tab_single:
         # Nhóm 2 nút bấm to rõ ràng theo đúng đặc tả Plan & Giao diện.docx
         btn_col1, btn_col2 = st.columns([1.2, 1.0])
         with btn_col1:
-            start_btn = st.button("▶ Bắt đầu Chạy & Chấm điểm", type="primary", icon=":material/play_arrow:", use_container_width=True)
+            start_btn = st.button("Bắt đầu Chạy & Chấm điểm", type="primary", icon=":material/play_arrow:", use_container_width=True)
         with btn_col2:
-            reeval_btn = st.button("🔄 Chấm điểm lại", icon=":material/replay:", use_container_width=True, help="Chạy lại Render Playwright và tính điểm 6 tiêu chí cho code đã sinh ra.")
+            reeval_btn = st.button("Chấm điểm lại", icon=":material/replay:", use_container_width=True, help="Chạy lại Render Playwright và tính điểm 6 tiêu chí cho code đã sinh ra.")
 
         # Xử lý nút: Bắt đầu chạy & chấm điểm
         if start_btn:
@@ -203,7 +203,7 @@ with tab_single:
 # ==================== CHẾ ĐỘ 2: CHẠY HÀNG LOẠT 144 LẦN ====================
 with tab_batch:
     st.markdown(f"""
-    <div style="display:flex; align-items:center; gap:8px; margin-bottom:6px;">
+    <div style="display:flex; align-items:center; gap:10px; padding-top:10px; margin-top:8px; margin-bottom:10px;">
         {get_svg("analytics", size=22, color="#0B57D0")}
         <span style="font-weight:700; font-size:1.15rem; color:#1F1F1F;">Chiến Dịch Thí Nghiệm Ma Trận 144 Runs</span>
     </div>
@@ -252,9 +252,9 @@ with tab_batch:
     # Các nút điều khiển chiến dịch theo đặc tả
     action_cols = st.columns([1.2, 1.2, 1.0])
     with action_cols[0]:
-        start_batch_btn = st.button("🚀 Khởi chạy Chiến dịch 144 Runs", icon=":material/rocket_launch:", type="primary", use_container_width=True)
+        start_batch_btn = st.button("Khởi chạy Chiến dịch 144 Runs", icon=":material/rocket_launch:", type="primary", use_container_width=True)
     with action_cols[1]:
-        pause_resume_btn = st.button("⏸ Tạm dừng / Chạy tiếp", icon=":material/pause_circle:", use_container_width=True)
+        pause_resume_btn = st.button("Tạm dừng / Chạy tiếp", icon=":material/pause_circle:", use_container_width=True)
     with action_cols[2]:
         retry_failed_btn = st.button("Chạy Lại Các Lượt Lỗi", icon=":material/replay:", use_container_width=True)
 

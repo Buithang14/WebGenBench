@@ -57,7 +57,7 @@ with top_col2:
 # Khung tạo bài tập mới (Expander)
 if show_create_modal or st.session_state.get("is_creating_task", False):
     st.session_state["is_creating_task"] = True
-    with st.expander("✨ Biểu mẫu tạo bài tập Benchmark mới", expanded=True):
+    with st.expander("Biểu mẫu tạo bài tập Benchmark mới", icon=":material/add_circle:", expanded=True):
         c1, c2, c3 = st.columns([1, 1.5, 2])
         with c1:
             new_id = st.text_input("Mã bài tập (Task ID):", placeholder="Ví dụ: T09")
@@ -122,17 +122,17 @@ prompt_file_path = task_data.prompt_path
 
 # Thẻ thông tin nhanh về bài tập
 st.markdown(f"""
-<div style="background:var(--md-sys-color-surface-container); border-radius:16px; padding:14px 20px; border:1px solid var(--md-sys-color-outline-variant); margin-top:10px; margin-bottom:18px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; box-shadow: var(--md-elevation-1);">
-    <div style="display:flex; align-items:center; gap:12px;">
-        <div style="background:#0B57D0; color:white; border-radius:12px; padding:8px 12px; font-weight:800; font-size:1.1rem;">
+<div style="background:var(--md-sys-color-surface-container); border-radius:16px; padding:18px 24px; border:1px solid var(--md-sys-color-outline-variant); margin-top:14px; margin-bottom:24px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px; box-shadow: var(--md-elevation-1);">
+    <div style="display:flex; align-items:center; gap:14px;">
+        <div style="background:#0B57D0; color:white; border-radius:12px; padding:10px 16px; font-weight:800; font-size:1.15rem; box-shadow: var(--md-elevation-1);">
             {task_data.meta.task_id}
         </div>
         <div>
-            <div style="font-weight:700; font-size:1.15rem; color:#1F1F1F;">{task_data.meta.name}</div>
-            <div style="font-size:0.88rem; color:#444746;">{task_data.meta.title_vi}</div>
+            <div style="font-weight:700; font-size:1.18rem; color:#1F1F1F;">{task_data.meta.name}</div>
+            <div style="font-size:0.9rem; color:#444746; margin-top:2px;">{task_data.meta.title_vi}</div>
         </div>
     </div>
-    <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
+    <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
         <span class="m3-chip m3-chip-primary">{get_svg("code", size=14, color="#041E49")} {', '.join(task_data.meta.expected_files)}</span>
         <span class="m3-chip m3-chip-secondary">{get_svg("task", size=14, color="#001D35")} {len(task_data.meta.ui_requirements)} Yêu cầu UI</span>
         <span class="m3-chip m3-chip-tertiary">{get_svg("tune", size=14, color="#001F24")} {len(task_data.meta.technical_requirements)} Yêu cầu Kỹ thuật</span>

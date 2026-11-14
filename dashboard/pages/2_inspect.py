@@ -94,24 +94,24 @@ with col_h4:
     st.metric("Thời Gian / Dòng Mã (LOC)", f"{run_info['duration_seconds']}s", f"{proj_info.get('total_lines_of_code', 0)} LOC")
 
 st.markdown(f"""
-<div style="background:var(--md-sys-color-surface-container); border-radius:12px; padding:10px 16px; border:1px solid var(--md-sys-color-outline-variant); margin-bottom:1.5rem; font-size:0.88rem; color:#444746; display:flex; align-items:center; gap:8px; box-shadow: var(--md-elevation-1);">
-    {get_svg("shield_check", size=18, color="#0B57D0")}
-    <span><b>Mã SHA-256 xác thực:</b> <code>{proj_info.get('sha256_hash', 'N/A')}</code> &nbsp;|&nbsp; 🕒 <b>Thời điểm chạy:</b> <code>{run_info.get('start_time', 'N/A')}</code> &nbsp;|&nbsp; 🏷️ <b>Mã ẩn danh:</b> <code>{run_info.get('blind_code', 'N/A')}</code></span>
+<div style="background:var(--md-sys-color-surface-container); border-radius:14px; padding:14px 22px; border:1px solid var(--md-sys-color-outline-variant); margin-bottom:1.8rem; font-size:0.9rem; color:#444746; display:flex; align-items:center; gap:10px; box-shadow: var(--md-elevation-1);">
+    {get_svg("shield_check", size=20, color="#0B57D0")}
+    <span><b>Mã SHA-256 xác thực:</b> <code>{proj_info.get('sha256_hash', 'N/A')}</code> &nbsp;|&nbsp; {get_svg("schedule", size=16, color="#0B57D0")} <b>Thời điểm chạy:</b> <code>{run_info.get('start_time', 'N/A')}</code> &nbsp;|&nbsp; {get_svg("label", size=16, color="#0B57D0")} <b>Mã ẩn danh:</b> <code>{run_info.get('blind_code', 'N/A')}</code></span>
 </div>
 """, unsafe_allow_html=True)
 
 # 4 Tab chuyên sâu theo đúng đặc tả Giao diện.docx
 tab_visual, tab_metrics, tab_code, tab_runtime = st.tabs([
-    "1. So Sánh Ảnh Trực Quan (Đặt Cạnh Nhau)",
-    "2. Bảng Điểm 6 Tiêu Chí & Danh Sách Lỗi",
-    "3. Trình Xem Code (Code Viewer)",
-    "4. Nhật Ký Lỗi Runtime Trình Duyệt"
+    "1. So Sánh Ảnh Trực Quan",
+    "2. Bảng Điểm 6 Tiêu Chí & Lỗi",
+    "3. Trình Xem Code",
+    "4. Nhật Ký Lỗi Runtime"
 ])
 
 # ==================== TAB 1: SO SÁNH ẢNH TRỰC QUAN ĐẶT CẠNH NHAU ====================
 with tab_visual:
     st.markdown(f"""
-    <div style="display:flex; align-items:center; gap:8px; margin-bottom:12px;">
+    <div style="display:flex; align-items:center; gap:10px; padding-top:10px; margin-top:8px; margin-bottom:18px;">
         {get_svg("visibility", size=22, color="#0B57D0")}
         <span style="font-weight:700; font-size:1.15rem; color:#1F1F1F;">So Sánh Ảnh Trực Quan: Ảnh Gốc Mẫu vs 3 Cỡ Màn Hình Thực Tế</span>
     </div>
@@ -130,9 +130,9 @@ with tab_visual:
 
     with col_ref:
         st.markdown(f"""
-        <div style="background:var(--md-sys-color-surface-container); border-radius:12px; padding:10px 14px; border:1px solid var(--md-sys-color-outline-variant); margin-bottom:8px; display:flex; align-items:center; gap:6px;">
-            {get_svg("trophy", size=18, color="#0B57D0")}
-            <span style="font-weight:700; color:#0B57D0; font-size:1rem;">Bên Trái: Ảnh Thiết Kế Mẫu Gốc (Ground Truth)</span>
+        <div style="background:var(--md-sys-color-surface-container); border-radius:14px; padding:14px 18px; border:1px solid var(--md-sys-color-outline-variant); margin-bottom:12px; display:flex; align-items:center; gap:8px;">
+            {get_svg("trophy", size=20, color="#0B57D0")}
+            <span style="font-weight:700; color:#0B57D0; font-size:1.02rem;">Bên Trái: Ảnh Thiết Kế Mẫu Gốc (Ground Truth)</span>
         </div>
         """, unsafe_allow_html=True)
         if ref_img_path and ref_img_path.exists():
@@ -142,17 +142,17 @@ with tab_visual:
 
     with col_actual:
         st.markdown(f"""
-        <div style="background:var(--md-sys-color-surface-container); border-radius:12px; padding:10px 14px; border:1px solid var(--md-sys-color-outline-variant); margin-bottom:8px; display:flex; align-items:center; gap:6px;">
-            {get_svg("desktop", size=18, color="#0B57D0")}
-            <span style="font-weight:700; color:#0B57D0; font-size:1rem;">Bên Phải: 3 Ảnh Thực Tế AI Sinh Ra (Mobile, Tablet, Desktop)</span>
+        <div style="background:var(--md-sys-color-surface-container); border-radius:14px; padding:14px 18px; border:1px solid var(--md-sys-color-outline-variant); margin-bottom:12px; display:flex; align-items:center; gap:8px;">
+            {get_svg("desktop", size=20, color="#0B57D0")}
+            <span style="font-weight:700; color:#0B57D0; font-size:1.02rem;">Bên Phải: 3 Ảnh Thực Tế AI Sinh Ra (Mobile, Tablet, Desktop)</span>
         </div>
         """, unsafe_allow_html=True)
 
         vp_subtab1, vp_subtab2, vp_subtab3, vp_subtab_all = st.tabs([
-            "💻 Máy Tính Bàn (1440px)",
-            "📱 Máy Tính Bảng (768px)",
-            "📱 Điện Thoại (375px)",
-            "🖼️ Đặt Cả 3 Cỡ Cạnh Nhau"
+            "Desktop (1440px)",
+            "Tablet (768px)",
+            "Mobile (375px)",
+            "Cả 3 Kích Thước"
         ])
 
         with vp_subtab1:
@@ -185,22 +185,22 @@ with tab_visual:
         with vp_subtab_all:
             col_v1, col_v2, col_v3 = st.columns([1, 1.2, 1.6])
             with col_v1:
-                st.caption("📱 Điện thoại (375px)")
+                st.markdown(f"<div style='display:flex; align-items:center; gap:6px; font-size:0.85rem; color:#444746; margin-bottom:6px;'>{get_svg('smartphone', size=16, color='#0B57D0')} <span>Điện thoại (375px)</span></div>", unsafe_allow_html=True)
                 if sc_375 and (ROOT_DIR / sc_375["image_path"]).exists():
                     st.image(str(ROOT_DIR / sc_375["image_path"]), use_container_width=True)
             with col_v2:
-                st.caption("📱 Máy tính bảng (768px)")
+                st.markdown(f"<div style='display:flex; align-items:center; gap:6px; font-size:0.85rem; color:#444746; margin-bottom:6px;'>{get_svg('tablet_mac', size=16, color='#0B57D0')} <span>Máy tính bảng (768px)</span></div>", unsafe_allow_html=True)
                 if sc_768 and (ROOT_DIR / sc_768["image_path"]).exists():
                     st.image(str(ROOT_DIR / sc_768["image_path"]), use_container_width=True)
             with col_v3:
-                st.caption("💻 Máy tính bàn (1440px)")
+                st.markdown(f"<div style='display:flex; align-items:center; gap:6px; font-size:0.85rem; color:#444746; margin-bottom:6px;'>{get_svg('desktop_windows', size=16, color='#0B57D0')} <span>Máy tính bàn (1440px)</span></div>", unsafe_allow_html=True)
                 if sc_1440 and (ROOT_DIR / sc_1440["image_path"]).exists():
                     st.image(str(ROOT_DIR / sc_1440["image_path"]), use_container_width=True)
 
 # ==================== TAB 2: BẢNG ĐIỂM 6 TIÊU CHÍ & DANH SÁCH LỖI BẮT ĐƯỢC ====================
 with tab_metrics:
     st.markdown(f"""
-    <div style="display:flex; align-items:center; gap:8px; margin-bottom:12px;">
+    <div style="display:flex; align-items:center; gap:10px; padding-top:10px; margin-top:8px; margin-bottom:18px;">
         {get_svg("analytics", size=22, color="#0B57D0")}
         <span style="font-weight:700; font-size:1.15rem; color:#1F1F1F;">Bảng Điểm 6 Tiêu Chí & Danh Sách Lỗi Bắt Được</span>
     </div>
@@ -265,7 +265,7 @@ with tab_metrics:
 # ==================== TAB 3: TRÌNH XEM CODE (CODE VIEWER) ====================
 with tab_code:
     st.markdown(f"""
-    <div style="display:flex; align-items:center; gap:8px; margin-bottom:12px;">
+    <div style="display:flex; align-items:center; gap:10px; padding-top:10px; margin-top:8px; margin-bottom:18px;">
         {get_svg("code", size=22, color="#0B57D0")}
         <span style="font-weight:700; font-size:1.15rem; color:#1F1F1F;">Trình Xem Code (Code Viewer): Xem Trực Tiếp index.html, style.css, script.js</span>
     </div>
@@ -287,18 +287,19 @@ with tab_code:
         all_display_files = available_files + all_other_files
 
         if all_display_files:
-            file_tabs = st.tabs([f"📄 {f.name}" for f in all_display_files])
+            file_tabs = st.tabs([f.name for f in all_display_files])
             for f_tab, f_path in zip(file_tabs, all_display_files):
                 with f_tab:
                     ext = f_path.suffix.lower()
                     lang = "html" if ext == ".html" else ("css" if ext == ".css" else ("javascript" if ext == ".js" else "text"))
                     content = f_path.read_text(encoding="utf-8", errors="ignore")
                     
+                    st.markdown(f"<div style='display:flex; align-items:center; gap:8px; font-weight:700; font-size:1.05rem; color:#1F1F1F; margin-top:4px; margin-bottom:8px;'>{get_svg('description', size=20, color='#0B57D0')} <span>{f_path.name}</span></div>", unsafe_allow_html=True)
                     c_info1, c_info2 = st.columns([3, 1])
                     with c_info1:
                         st.caption(f"Đường dẫn: `{f_path.relative_to(ROOT_DIR)}` &nbsp;|&nbsp; Kích thước: `{len(content.splitlines())} dòng ({len(content)} bytes)`")
                     with c_info2:
-                        st.download_button(f"Tải {f_path.name}", data=content, file_name=f_path.name, use_container_width=True)
+                        st.download_button(f"Tải {f_path.name}", data=content, file_name=f_path.name, icon=":material/download:", use_container_width=True)
                         
                     st.code(content, language=lang, line_numbers=True)
         else:
@@ -309,7 +310,7 @@ with tab_code:
 # ==================== TAB 4: NHẬT KÝ LỖI RUNTIME ====================
 with tab_runtime:
     st.markdown(f"""
-    <div style="display:flex; align-items:center; gap:8px; margin-bottom:12px;">
+    <div style="display:flex; align-items:center; gap:10px; padding-top:10px; margin-top:8px; margin-bottom:18px;">
         {get_svg("bug_report", size=22, color="#0B57D0")}
         <span style="font-weight:700; font-size:1.15rem; color:#1F1F1F;">Nhật Ký Lỗi Runtime Thu Thập Từ Playwright</span>
     </div>

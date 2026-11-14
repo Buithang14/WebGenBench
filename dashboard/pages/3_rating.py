@@ -38,8 +38,8 @@ mapper = BlindMapper(db_manager=db)
 mapper.ensure_blind_codes_assigned()
 
 tab_rating, tab_agreement = st.tabs([
-    "Phiếu Đánh Giá Chuyên Gia (Blind Rating)",
-    "Phân Tích Độ Đồng Thuận (Inter-Rater Reliability)"
+    "1. Phiếu Chấm Điểm Ẩn Danh (Rating)",
+    "2. Độ Đồng Thuận (Inter-Rater)"
 ])
 
 # ==================== TAB 1: PHIẾU CHẤM ĐIỂM ====================
@@ -100,9 +100,9 @@ with tab_rating:
 
     with col_form:
         st.markdown(f"""
-        <div style="background:var(--md-sys-color-surface-container); border-radius:16px; padding:14px 20px; border:1px solid var(--md-sys-color-outline-variant); margin-bottom:15px; display:flex; align-items:center; gap:8px; box-shadow: var(--md-elevation-1);">
+        <div style="background:var(--md-sys-color-surface-container); border-radius:16px; padding:18px 24px; border:1px solid var(--md-sys-color-outline-variant); margin-bottom:18px; display:flex; align-items:center; gap:10px; box-shadow: var(--md-elevation-1);">
             {get_svg("star", size=22, color="#0B57D0")}
-            <span style="font-weight:700; color:#0B57D0; font-size:1.1rem;">Phiếu Đánh Giá Chuyên Gia (Thang 1 - 5)</span>
+            <span style="font-weight:700; color:#0B57D0; font-size:1.15rem;">Phiếu Đánh Giá Chuyên Gia (Thang 1 - 5)</span>
         </div>
         """, unsafe_allow_html=True)
         
@@ -165,15 +165,15 @@ with tab_rating:
     if existing_ratings:
         for r in existing_ratings:
             st.markdown(f"""
-            <div style="background:var(--md-sys-color-surface-container); border-radius:12px; padding:12px 16px; margin-bottom:8px; border:1px solid var(--md-sys-color-outline-variant); box-shadow: var(--md-elevation-1);">
+            <div style="background:var(--md-sys-color-surface-container); border-radius:14px; padding:16px 22px; margin-bottom:12px; border:1px solid var(--md-sys-color-outline-variant); box-shadow: var(--md-elevation-1);">
                 <div style="display:flex; justify-content:space-between; align-items:center;">
                     <div><b>Chuyên gia:</b> <code>{r['rater_id']}</code></div>
                     {m3_chip(f"TB: {r['average_rating']}/5.0", chip_type="primary", icon_name="star")}
                 </div>
-                <div style="font-size:0.85rem; color:#444746; margin-top:4px;">
+                <div style="font-size:0.88rem; color:#444746; margin-top:6px;">
                     Bố cục: <b>{r['layout_score']}</b> &nbsp;|&nbsp; Thẩm mỹ: <b>{r['aesthetics_score']}</b> &nbsp;|&nbsp; Trải nghiệm: <b>{r['readability_score']}</b> &nbsp;|&nbsp; Hoàn thiện: <b>{r['completeness_score']}</b>
                 </div>
-                <div style="font-size:0.9rem; color:#1F1F1F; margin-top:6px; font-style:italic;">"{r.get('comment') or 'Không có bình luận'}"</div>
+                <div style="font-size:0.92rem; color:#1F1F1F; margin-top:8px; font-style:italic;">"{r.get('comment') or 'Không có bình luận'}"</div>
             </div>
             """, unsafe_allow_html=True)
     else:

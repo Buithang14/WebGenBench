@@ -62,19 +62,19 @@ def home_page():
     # Thanh bên Sidebar theo phong cách M3 Navigation Drawer
     with st.sidebar:
         st.markdown(f"""
-        <div style="display:flex; align-items:center; gap:12px; margin-bottom: 1.2rem;">
-            <div style="background:#0B57D0; color:white; border-radius:12px; padding:6px 10px; display:flex; align-items:center; justify-content:center; box-shadow: var(--md-elevation-1);">
+        <div style="display:flex; align-items:center; gap:14px; margin-bottom: 1.5rem; padding: 4px 0;">
+            <div style="background:#0B57D0; color:white; border-radius:12px; padding:8px 12px; display:flex; align-items:center; justify-content:center; box-shadow: var(--md-elevation-1);">
                 {get_svg("code", size=24, color="#FFFFFF")}
             </div>
             <div>
-                <div style="font-weight:700; font-size:1.1rem; color:#1F1F1F; line-height:1.2;">WebGenBench</div>
+                <div style="font-weight:700; font-size:1.15rem; color:#1F1F1F; line-height:1.2;">WebGenBench</div>
                 <div style="font-size:0.75rem; color:#444746; font-weight:600; letter-spacing:0.5px;">MATERIAL YOU EDITION</div>
             </div>
         </div>
         """, unsafe_allow_html=True)
         
         st.markdown(f"""
-        <div style="display:flex; align-items:center; gap:8px; margin-bottom:8px;">
+        <div style="display:flex; align-items:center; gap:8px; margin-top:0.5rem; margin-bottom:10px;">
             {get_svg("desktop", size=18, color="#0B57D0")}
             <span style="font-weight:700; font-size:0.95rem; color:#1F1F1F;">Công Cụ IDE Mục Tiêu</span>
         </div>
@@ -83,7 +83,7 @@ def home_page():
         tools_cfg = load_tools()
         for k, v in tools_cfg.tools.items():
             st.markdown(f"""
-            <div style="background:var(--md-sys-color-surface-container); border-radius:12px; padding:8px 12px; margin-bottom:6px; border:1px solid var(--md-sys-color-outline-variant);">
+            <div style="background:var(--md-sys-color-surface-container); border-radius:12px; padding:10px 14px; margin-bottom:8px; border:1px solid var(--md-sys-color-outline-variant);">
                 <div style="font-weight:700; color:#0B57D0; font-size:0.88rem;">{v.name}</div>
                 <div style="font-size:0.78rem; color:#444746;">Agent: <b>{v.agent_name}</b> ({v.fixed_model})</div>
             </div>

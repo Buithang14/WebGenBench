@@ -54,9 +54,9 @@ with tab_weights:
 
     with col_sliders:
         st.markdown(f"""
-        <div style="background:var(--md-sys-color-surface-container); border-radius:16px; padding:14px 20px; border:1px solid var(--md-sys-color-outline-variant); margin-bottom:15px; display:flex; align-items:center; gap:8px; box-shadow: var(--md-elevation-1);">
+        <div style="background:var(--md-sys-color-surface-container); border-radius:16px; padding:18px 24px; border:1px solid var(--md-sys-color-outline-variant); margin-top:8px; margin-bottom:18px; display:flex; align-items:center; gap:10px; box-shadow: var(--md-elevation-1);">
             {get_svg("tune", size=22, color="#0B57D0")}
-            <span style="font-weight:700; color:#0B57D0; font-size:1.1rem;">6 Thanh Kéo (Sliders) Trọng Số</span>
+            <span style="font-weight:700; color:#0B57D0; font-size:1.15rem;">6 Thanh Kéo (Sliders) Trọng Số</span>
         </div>
         """, unsafe_allow_html=True)
 
@@ -115,9 +115,9 @@ with tab_weights:
 
     with col_sim:
         st.markdown(f"""
-        <div style="background:var(--md-sys-color-surface-container); border-radius:16px; padding:14px 20px; border:1px solid var(--md-sys-color-outline-variant); margin-bottom:15px; display:flex; align-items:center; gap:8px; box-shadow: var(--md-elevation-1);">
+        <div style="background:var(--md-sys-color-surface-container); border-radius:16px; padding:18px 24px; border:1px solid var(--md-sys-color-outline-variant); margin-top:8px; margin-bottom:18px; display:flex; align-items:center; gap:10px; box-shadow: var(--md-elevation-1);">
             {get_svg("analytics", size=22, color="#0B57D0")}
-            <span style="font-weight:700; color:#0B57D0; font-size:1.1rem;">Mô Phỏng Điểm Số Thời Gian Thực</span>
+            <span style="font-weight:700; color:#0B57D0; font-size:1.15rem;">Mô Phỏng Điểm Số Thời Gian Thực</span>
         </div>
         """, unsafe_allow_html=True)
         
@@ -161,9 +161,9 @@ with tab_weights:
 # ==================== TAB 2: CẤU HÌNH IDE & HỆ THỐNG ====================
 with tab_ide_config:
     st.markdown(f"""
-    <div style="background:var(--md-sys-color-surface-container); border-radius:16px; padding:14px 20px; border:1px solid var(--md-sys-color-outline-variant); margin-bottom:15px; display:flex; align-items:center; gap:8px; box-shadow: var(--md-elevation-1);">
+    <div style="background:var(--md-sys-color-surface-container); border-radius:16px; padding:18px 24px; border:1px solid var(--md-sys-color-outline-variant); margin-top:8px; margin-bottom:18px; display:flex; align-items:center; gap:10px; box-shadow: var(--md-elevation-1);">
         {get_svg("desktop", size=22, color="#0B57D0")}
-        <span style="font-weight:700; color:#0B57D0; font-size:1.1rem;">Cấu Hình Đường Dẫn 3 IDE & Model Cố Định</span>
+        <span style="font-weight:700; color:#0B57D0; font-size:1.15rem;">Cấu Hình Đường Dẫn 3 IDE & Model Cố Định</span>
     </div>
     """, unsafe_allow_html=True)
     st.caption("Xem và cập nhật đường dẫn thực thi (.exe) của 3 IDE trên máy tính, tên Model cố định của AI Agent và tham số Timeout.")
@@ -190,7 +190,7 @@ with tab_ide_config:
         """, unsafe_allow_html=True)
         cursor_exe = st.text_input("Đường dẫn Cursor.exe:", value=execs.get("cursor", ""), key="cfg_cursor_exe")
         cursor_exists = Path(cursor_exe).exists() if cursor_exe else False
-        st.caption(f"Trạng thái tệp: {'✅ Đã tìm thấy file .exe' if cursor_exists else '⚠️ File không tồn tại hoặc sai đường dẫn'}")
+        st.markdown(f"<div style='display:flex; align-items:center; gap:6px; font-size:0.83rem; color:{'#146C2E' if cursor_exists else '#BA1A1A'}; margin-top:4px;'>{get_svg('check_circle', size=16, color='#146C2E') if cursor_exists else get_svg('warning', size=16, color='#BA1A1A')} <span>{'Đã tìm thấy file .exe' if cursor_exists else 'File không tồn tại hoặc sai đường dẫn'}</span></div>", unsafe_allow_html=True)
         
         cursor_model = st.text_input("Model AI cố định (Cursor):", value=tools_dict.get("cursor", {}).get("fixed_model", "claude-3-5-sonnet-20241022"), key="cfg_cursor_model")
         cursor_agent = st.text_input("Tên Agent:", value=tools_dict.get("cursor", {}).get("agent_name", "Cursor Agent"), key="cfg_cursor_agent")
@@ -205,7 +205,7 @@ with tab_ide_config:
         """, unsafe_allow_html=True)
         windsurf_exe = st.text_input("Đường dẫn Windsurf.exe:", value=execs.get("windsurf", ""), key="cfg_windsurf_exe")
         windsurf_exists = Path(windsurf_exe).exists() if windsurf_exe else False
-        st.caption(f"Trạng thái tệp: {'✅ Đã tìm thấy file .exe' if windsurf_exists else '⚠️ File không tồn tại hoặc sai đường dẫn'}")
+        st.markdown(f"<div style='display:flex; align-items:center; gap:6px; font-size:0.83rem; color:{'#146C2E' if windsurf_exists else '#BA1A1A'}; margin-top:4px;'>{get_svg('check_circle', size=16, color='#146C2E') if windsurf_exists else get_svg('warning', size=16, color='#BA1A1A')} <span>{'Đã tìm thấy file .exe' if windsurf_exists else 'File không tồn tại hoặc sai đường dẫn'}</span></div>", unsafe_allow_html=True)
         
         windsurf_model = st.text_input("Model AI cố định (Windsurf):", value=tools_dict.get("windsurf", {}).get("fixed_model", "claude-3-5-sonnet"), key="cfg_windsurf_model")
         windsurf_agent = st.text_input("Tên Agent:", value=tools_dict.get("windsurf", {}).get("agent_name", "Cascade"), key="cfg_windsurf_agent")
@@ -220,7 +220,7 @@ with tab_ide_config:
         """, unsafe_allow_html=True)
         vscode_exe = st.text_input("Đường dẫn Code.exe:", value=execs.get("vscode", ""), key="cfg_vscode_exe")
         vscode_exists = Path(vscode_exe).exists() if vscode_exe else False
-        st.caption(f"Trạng thái tệp: {'✅ Đã tìm thấy file .exe' if vscode_exists else '⚠️ File không tồn tại hoặc sai đường dẫn'}")
+        st.markdown(f"<div style='display:flex; align-items:center; gap:6px; font-size:0.83rem; color:{'#146C2E' if vscode_exists else '#BA1A1A'}; margin-top:4px;'>{get_svg('check_circle', size=16, color='#146C2E') if vscode_exists else get_svg('warning', size=16, color='#BA1A1A')} <span>{'Đã tìm thấy file .exe' if vscode_exists else 'File không tồn tại hoặc sai đường dẫn'}</span></div>", unsafe_allow_html=True)
         
         vscode_model = st.text_input("Model AI cố định (VS Code):", value=tools_dict.get("vscode", {}).get("fixed_model", "gpt-4o"), key="cfg_vscode_model")
         vscode_agent = st.text_input("Tên Agent:", value=tools_dict.get("vscode", {}).get("agent_name", "GitHub Copilot Agent"), key="cfg_vscode_agent")

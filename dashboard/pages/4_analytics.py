@@ -95,17 +95,17 @@ for r in filtered_runs:
 df_detail = pd.DataFrame(detailed_records)
 
 tab_overview, tab_boxplot, tab_cond, tab_metrics, tab_agreement = st.tabs([
-    "1. So Sánh 3 IDE (Bar Chart)",
+    "1. So Sánh 3 IDE",
     "2. Độ Ổn Định (Boxplot)",
-    "3. So Sánh Chữ vs Chữ+Ảnh",
+    "3. So Sánh Chữ vs Ảnh",
     "4. 6 Nhóm Tiêu Chí",
-    "5. Độ Đồng Thuận Giữa Những Người Chấm"
+    "5. Độ Đồng Thuận Chuyên Gia"
 ])
 
 # ==================== TAB 1: XẾP HẠNG & BAR CHART ====================
 with tab_overview:
     st.markdown(f"""
-    <div style="display:flex; align-items:center; gap:8px; margin-bottom:12px;">
+    <div style="display:flex; align-items:center; gap:10px; padding-top:10px; margin-top:8px; margin-bottom:18px;">
         {get_svg("chart_bar", size=22, color="#0B57D0")}
         <span style="font-weight:700; font-size:1.15rem; color:#1F1F1F;">1. Tổng Điểm Chuẩn Hóa Theo Lượt Chạy (0 - 100 Điểm)</span>
     </div>
@@ -161,7 +161,7 @@ with tab_overview:
 # ==================== TAB 2: BOXPLOT ĐỘ ỔN ĐỊNH ====================
 with tab_boxplot:
     st.markdown(f"""
-    <div style="display:flex; align-items:center; gap:8px; margin-bottom:6px;">
+    <div style="display:flex; align-items:center; gap:10px; padding-top:10px; margin-top:8px; margin-bottom:12px;">
         {get_svg("box", size=22, color="#0B57D0")}
         <span style="font-weight:700; font-size:1.15rem; color:#1F1F1F;">2. Biểu Đồ Hộp (Boxplot) Đo Độ Phân Tán & Độ Ổn Định</span>
     </div>
@@ -201,7 +201,7 @@ with tab_boxplot:
 # ==================== TAB 3: ĐIỀU KIỆN A VS B ====================
 with tab_cond:
     st.markdown(f"""
-    <div style="display:flex; align-items:center; gap:8px; margin-bottom:6px;">
+    <div style="display:flex; align-items:center; gap:10px; padding-top:10px; margin-top:8px; margin-bottom:12px;">
         {get_svg("contrast", size=22, color="#0B57D0")}
         <span style="font-weight:700; font-size:1.15rem; color:#1F1F1F;">3. So Sánh Hiệu Quả: Điều Kiện A (Text-only) vs Điều Kiện B (Text + Image)</span>
     </div>
@@ -246,7 +246,7 @@ with tab_cond:
 # ==================== TAB 4: 6 TIÊU CHÍ ====================
 with tab_metrics:
     st.markdown(f"""
-    <div style="display:flex; align-items:center; gap:8px; margin-bottom:12px;">
+    <div style="display:flex; align-items:center; gap:10px; padding-top:10px; margin-top:8px; margin-bottom:18px;">
         {get_svg("analytics", size=22, color="#0B57D0")}
         <span style="font-weight:700; font-size:1.15rem; color:#1F1F1F;">4. So Sánh Chi Tiết 6 Nhóm Tiêu Chí Giữa Các IDE</span>
     </div>
@@ -277,7 +277,7 @@ with tab_metrics:
 # ==================== TAB 5: ĐỘ ĐỒNG THUẬN GIỮA NHỮNG NGƯỜI CHẤM ====================
 with tab_agreement:
     st.markdown(f"""
-    <div style="display:flex; align-items:center; gap:8px; margin-bottom:12px;">
+    <div style="display:flex; align-items:center; gap:10px; padding-top:10px; margin-top:8px; margin-bottom:14px;">
         {get_svg("gavel", size=22, color="#0B57D0")}
         <span style="font-weight:700; font-size:1.15rem; color:#1F1F1F;">5. Phân Tích Độ Đồng Thuận Giữa Những Người Chấm (Inter-Rater Agreement)</span>
     </div>
@@ -336,7 +336,7 @@ st.markdown(f"""
 st.dataframe(df_detail, use_container_width=True, hide_index=True)
 csv_data = df_detail.to_csv(index=False).encode('utf-8-sig')
 st.download_button(
-    label="📥 Xuất file CSV đưa vào khóa luận",
+    label="Xuất file CSV đưa vào khóa luận",
     data=csv_data,
     file_name="webgenbench_analytics_matrix.csv",
     mime="text/csv",

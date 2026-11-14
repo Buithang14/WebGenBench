@@ -80,6 +80,14 @@ M3_CSS = """
     --md-elevation-2: 0px 2px 6px 2px rgba(0, 0, 0, 0.08), 0px 1px 2px 0px rgba(0, 0, 0, 0.12);
     --md-elevation-3: 0px 4px 8px 3px rgba(0, 0, 0, 0.08), 0px 1px 3px 0px rgba(0, 0, 0, 0.14);
     --md-elevation-4: 0px 6px 10px 4px rgba(0, 0, 0, 0.08), 0px 2px 3px 0px rgba(0, 0, 0, 0.14);
+
+    /* M3 Spacing Tokens */
+    --md-spacing-xs: 4px;
+    --md-spacing-s: 8px;
+    --md-spacing-m: 16px;
+    --md-spacing-l: 24px;
+    --md-spacing-xl: 32px;
+    --md-spacing-2xl: 48px;
 }
 
 /* ==================== GLOBAL TYPOGRAPHY & APP BASE ==================== */
@@ -127,22 +135,22 @@ span:not([data-testid="stIconMaterial"]):not([data-testid="stIconMaterial"] *) {
     color: var(--md-sys-color-on-surface) !important;
     letter-spacing: -0.5px;
     line-height: 1.35 !important;
-    margin-top: 0.25rem !important;
-    margin-bottom: 0.4rem !important;
-    padding-top: 4px !important;
-    padding-bottom: 4px !important;
+    margin-top: 0.5rem !important;
+    margin-bottom: 0.6rem !important;
+    padding-top: 6px !important;
+    padding-bottom: 6px !important;
     display: flex;
     align-items: center;
-    gap: 14px;
+    gap: 16px;
     overflow: visible !important;
 }
 
 .m3-headline-subtitle {
-    font-size: clamp(0.85rem, 0.95vw, 1.05rem) !important;
+    font-size: clamp(0.88rem, 0.98vw, 1.08rem) !important;
     color: var(--md-sys-color-on-surface-variant) !important;
     font-weight: 500 !important;
-    margin-bottom: 1.6rem !important;
-    line-height: 1.6;
+    margin-bottom: 2rem !important;
+    line-height: 1.65;
 }
 
 /* ==================== M3 CARDS & CONTAINERS ==================== */
@@ -151,9 +159,10 @@ span:not([data-testid="stIconMaterial"]):not([data-testid="stIconMaterial"] *) {
     background: var(--md-sys-color-surface-container) !important;
     border: 1px solid var(--md-sys-color-outline-variant) !important;
     border-radius: var(--md-shape-corner-large) !important;
-    padding: clamp(0.9rem, 1.2vw, 1.35rem) !important;
+    padding: clamp(1.2rem, 1.6vw, 1.75rem) !important;
     box-shadow: var(--md-elevation-1) !important;
     transition: all 0.2s cubic-bezier(0.2, 0.0, 0, 1.0);
+    margin-bottom: 1.25rem !important;
 }
 
 .m3-card:hover {
@@ -167,9 +176,10 @@ span:not([data-testid="stIconMaterial"]):not([data-testid="stIconMaterial"] *) {
     background: var(--md-sys-color-surface-container-lowest) !important;
     border: 1px solid var(--md-sys-color-outline-variant) !important;
     border-radius: var(--md-shape-corner-large) !important;
-    padding: clamp(0.95rem, 1.3vw, 1.45rem) !important;
+    padding: clamp(1.3rem, 1.75vw, 1.9rem) !important;
     box-shadow: var(--md-elevation-1) !important;
     transition: all 0.2s cubic-bezier(0.2, 0.0, 0, 1.0);
+    margin-bottom: 1.25rem !important;
 }
 
 .m3-card-elevated:hover {
@@ -182,7 +192,8 @@ span:not([data-testid="stIconMaterial"]):not([data-testid="stIconMaterial"] *) {
     background: var(--md-sys-color-surface-container-lowest) !important;
     border: 1px solid var(--md-sys-color-outline) !important;
     border-radius: var(--md-shape-corner-large) !important;
-    padding: clamp(0.9rem, 1.2vw, 1.35rem) !important;
+    padding: clamp(1.2rem, 1.6vw, 1.75rem) !important;
+    margin-bottom: 1.25rem !important;
 }
 
 .m3-card-value {
@@ -190,7 +201,7 @@ span:not([data-testid="stIconMaterial"]):not([data-testid="stIconMaterial"] *) {
     font-weight: 800 !important;
     color: var(--md-sys-color-primary) !important;
     line-height: 1.1;
-    margin-bottom: 0.25rem;
+    margin-bottom: 0.45rem !important;
 }
 
 .m3-card-label {
@@ -199,6 +210,7 @@ span:not([data-testid="stIconMaterial"]):not([data-testid="stIconMaterial"] *) {
     color: var(--md-sys-color-on-surface-variant) !important;
     text-transform: uppercase;
     letter-spacing: 0.6px;
+    margin-top: 0.35rem !important;
 }
 
 /* ==================== M3 CHIPS & BADGES ==================== */
@@ -206,12 +218,12 @@ span:not([data-testid="stIconMaterial"]):not([data-testid="stIconMaterial"] *) {
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    padding: 4px 12px;
+    padding: 6px 14px !important;
     border-radius: var(--md-shape-corner-full);
     font-size: 0.82rem;
     font-weight: 600;
-    margin-right: 6px;
-    margin-bottom: 6px;
+    margin-right: 8px !important;
+    margin-bottom: 8px !important;
     letter-spacing: 0.2px;
 }
 
@@ -260,14 +272,14 @@ span:not([data-testid="stIconMaterial"]):not([data-testid="stIconMaterial"] *) {
 /* ==================== M3 CALLOUT BANNERS ==================== */
 .m3-banner {
     border-radius: var(--md-shape-corner-medium);
-    padding: 14px 18px;
-    margin-bottom: 1.2rem;
+    padding: 18px 24px !important;
+    margin-bottom: 1.6rem !important;
     display: flex;
     align-items: flex-start;
-    gap: 12px;
+    gap: 16px !important;
     border: 1px solid transparent;
-    font-size: 0.92rem;
-    line-height: 1.5;
+    font-size: 0.95rem;
+    line-height: 1.55;
 }
 
 .m3-banner-info {
@@ -296,41 +308,77 @@ span:not([data-testid="stIconMaterial"]):not([data-testid="stIconMaterial"] *) {
 
 /* ==================== STREAMLIT COMPONENT OVERRIDES ==================== */
 
-/* Buttons -> M3 Filled Button (40px height, full pill) */
-.stButton > button {
+/* Buttons -> M3 Filled Button (42px height, full pill) */
+.stButton > button,
+.stButton button,
+.stDownloadButton > button,
+.stDownloadButton button,
+[data-testid="stDownloadButton"] button {
     border-radius: var(--md-shape-corner-full) !important;
-    padding: 0.65rem 1.6rem !important;
+    padding: 0.75rem 1.85rem !important;
     font-weight: 600 !important;
     font-size: 0.95rem !important;
     letter-spacing: 0.2px !important;
     transition: all 0.2s cubic-bezier(0.2, 0.0, 0, 1.0) !important;
     border: none !important;
     box-shadow: var(--md-elevation-1) !important;
+    min-height: 42px !important;
     height: auto !important;
+    margin-top: 0.25rem !important;
+    margin-bottom: 0.25rem !important;
 }
 
-.stButton > button:hover {
+.stButton > button:hover,
+.stButton button:hover,
+.stDownloadButton > button:hover,
+.stDownloadButton button:hover,
+[data-testid="stDownloadButton"] button:hover {
     box-shadow: var(--md-elevation-2) !important;
     transform: translateY(-1px);
 }
 
-.stButton > button:active {
+.stButton > button:active,
+.stButton button:active,
+.stDownloadButton > button:active,
+.stDownloadButton button:active,
+[data-testid="stDownloadButton"] button:active {
     box-shadow: var(--md-elevation-1) !important;
     transform: translateY(0);
 }
 
-.stButton > button[kind="primary"] {
+.stButton > button[kind="primary"],
+.stButton button[kind="primary"] {
     background-color: var(--md-sys-color-primary) !important;
     color: var(--md-sys-color-on-primary) !important;
 }
 
-.stButton > button[kind="secondary"] {
+.stButton > button[kind="secondary"],
+.stButton button[kind="secondary"] {
     background-color: var(--md-sys-color-surface-container-high) !important;
     color: var(--md-sys-color-on-surface) !important;
     border: 1px solid var(--md-sys-color-outline-variant) !important;
 }
 
-/* Inputs & Form Fields -> M3 Outlined Text Field */
+/* Download Button -> M3 Outlined / Tonal Button */
+.stDownloadButton > button,
+.stDownloadButton button,
+[data-testid="stDownloadButton"] button {
+    border: 1px solid var(--md-sys-color-primary) !important;
+    background-color: var(--md-sys-color-surface-container-lowest) !important;
+    color: var(--md-sys-color-primary) !important;
+    box-shadow: var(--md-elevation-1) !important;
+}
+
+.stDownloadButton > button:hover,
+.stDownloadButton button:hover,
+[data-testid="stDownloadButton"] button:hover {
+    background-color: var(--md-sys-color-primary-container) !important;
+    color: var(--md-sys-color-on-primary-container) !important;
+    box-shadow: var(--md-elevation-2) !important;
+    transform: translateY(-1px);
+}
+
+/* Inputs & Form Fields -> M3 Outlined Text Field with Generous Padding */
 .stTextInput > div > div > input,
 .stSelectbox > div > div,
 .stMultiSelect > div > div,
@@ -340,9 +388,19 @@ span:not([data-testid="stIconMaterial"]):not([data-testid="stIconMaterial"] *) {
     border: 1px solid var(--md-sys-color-outline) !important;
     background-color: var(--md-sys-color-surface-container-lowest) !important;
     color: var(--md-sys-color-on-surface) !important;
-    padding: 0.65rem 1rem !important;
+    padding: 0.75rem 1.15rem !important;
     font-size: 0.95rem !important;
+    min-height: 44px !important;
     transition: border 0.15s ease, box-shadow 0.15s ease !important;
+}
+
+.stTextInput, .stSelectbox, .stMultiSelect, .stNumberInput, .stTextArea {
+    margin-bottom: 0.85rem !important;
+}
+
+[data-testid="stWidgetLabel"] {
+    margin-bottom: 6px !important;
+    padding-bottom: 2px !important;
 }
 
 .stTextInput > div > div > input:focus,
@@ -353,59 +411,210 @@ span:not([data-testid="stIconMaterial"]):not([data-testid="stIconMaterial"] *) {
     outline: none !important;
 }
 
-/* Tabs -> M3 Primary Navigation Tabs */
+/* ==================== TABS & CÁC MỤC (M3 PRIMARY TABS & SECTION ITEMS - 1 DÒNG DUY NHẤT) ==================== */
+div[data-testid="stTabs"] {
+    margin-top: 1.0rem !important;
+    margin-bottom: 2.0rem !important;
+}
+
+/* Tab List / Khóa cứng danh sách các mục tab thành 1 DÒNG DUY NHẤT */
+div[data-testid="stTabs"] div[role="tablist"],
+div[role="tablist"],
+.stTabs [role="tablist"],
 .stTabs [data-baseweb="tab-list"] {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    white-space: nowrap !important;
     background-color: transparent !important;
-    border-bottom: 2px solid var(--md-sys-color-surface-container-highest) !important;
+    border-bottom: 1.5px solid var(--md-sys-color-surface-container-highest) !important;
     gap: 8px !important;
-    padding-bottom: 2px !important;
+    padding-top: 4px !important;
+    padding-bottom: 10px !important;
+    margin-bottom: 1.4rem !important;
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+    height: 48px !important;
+    min-height: 48px !important;
+    max-height: 48px !important;
+    align-items: center !important;
 }
 
+div[role="tablist"]::-webkit-scrollbar,
+div[data-testid="stTabs"] div[role="tablist"]::-webkit-scrollbar {
+    display: none !important;
+    height: 0px !important;
+    width: 0px !important;
+}
+
+/* Từng mục tab (Tab Item Button / M3 Pill kích thước gọn gàng, hiển thị 1 dòng) */
+div[data-testid="stTab"],
+[role="tab"],
+.stTabs [role="tab"],
 .stTabs [data-baseweb="tab"] {
-    border-radius: var(--md-shape-corner-full) !important;
-    padding: 8px 22px !important;
+    flex-shrink: 0 !important;
+    border-radius: var(--md-shape-corner-full, 9999px) !important;
+    padding: 6px 14px !important;
     font-weight: 600 !important;
+    font-size: 0.83rem !important;
+    letter-spacing: 0.1px !important;
     color: var(--md-sys-color-on-surface-variant) !important;
-    border: none !important;
-    background-color: transparent !important;
-    transition: all 0.2s ease !important;
+    background-color: var(--md-sys-color-surface-container) !important;
+    border: 1px solid var(--md-sys-color-outline-variant) !important;
+    transition: all 0.2s cubic-bezier(0.2, 0, 0, 1) !important;
+    height: 36px !important;
+    min-height: 36px !important;
+    max-height: 36px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    box-sizing: border-box !important;
+    cursor: pointer !important;
+    overflow: hidden !important;
+    white-space: nowrap !important;
 }
 
-.stTabs [aria-selected="true"] {
+/* Nội dung chữ bên trong từng tab */
+div[data-testid="stTab"] p,
+[role="tab"] p,
+.stTabs [role="tab"] p,
+div[data-testid="stTab"] [data-testid="stMarkdownContainer"] p {
+    margin: 0 !important;
+    padding: 0 !important;
+    line-height: 1.25 !important;
+    font-size: 0.83rem !important;
+    font-weight: 600 !important;
+    color: inherit !important;
+    white-space: nowrap !important;
+}
+
+/* Hiệu ứng hover cho từng mục tab */
+div[data-testid="stTab"]:hover:not([aria-selected="true"]),
+[role="tab"]:hover:not([aria-selected="true"]) {
+    background-color: var(--md-sys-color-surface-container-high) !important;
+    border-color: var(--md-sys-color-primary) !important;
+    color: var(--md-sys-color-primary) !important;
+}
+
+/* Mục tab đang được chọn (Active M3 Pill) */
+div[data-testid="stTab"][aria-selected="true"],
+[role="tab"][aria-selected="true"],
+div[data-testid="stTab"][data-selected="true"],
+.stTabs [data-baseweb="tab"][aria-selected="true"] {
     background-color: var(--md-sys-color-primary-container) !important;
     color: var(--md-sys-color-on-primary-container) !important;
+    border: 1.5px solid var(--md-sys-color-primary) !important;
+    font-weight: 700 !important;
     box-shadow: var(--md-elevation-1) !important;
 }
 
+div[data-testid="stTab"][aria-selected="true"] p,
+[role="tab"][aria-selected="true"] p,
+div[data-testid="stTab"][aria-selected="true"] [data-testid="stMarkdownContainer"] p {
+    font-weight: 700 !important;
+    color: var(--md-sys-color-on-primary-container) !important;
+}
+
+/* Triệt tiêu thanh line indicator 2px mặc định chèn dính vào tab pill */
+.react-aria-SelectionIndicator,
+div[data-testid="stTab"] .react-aria-SelectionIndicator,
+[data-baseweb="tab-highlight"],
+[data-baseweb="tab-border"] {
+    display: none !important;
+    height: 0px !important;
+    opacity: 0 !important;
+}
+
+/* Khung nội dung của từng mục tab (Tab Panel) - Bổ sung khoảng đệm rộng rãi */
+div[data-testid="stTabPanel"],
+div[role="tabpanel"],
+.stTabs [data-baseweb="tab-panel"] {
+    padding-top: 1.8rem !important;
+    padding-bottom: 2.2rem !important;
+    padding-left: 0.25rem !important;
+    padding-right: 0.25rem !important;
+    margin-top: 0.5rem !important;
+}
+
+/* Chuẩn hóa khoảng cách đệm (Padding & Margin) cho tiêu đề các mục (Section Items) */
+.m3-section-title,
+.stTabs h4, .stTabs h5,
+h4, h5 {
+    padding-top: 8px !important;
+    padding-bottom: 6px !important;
+    margin-top: 1.4rem !important;
+    margin-bottom: 1.2rem !important;
+    line-height: 1.45 !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+}
+
 /* Expander -> M3 Surface Container */
-.streamlit-expanderHeader {
+.streamlit-expanderHeader,
+[data-testid="stExpander"] details summary {
     border-radius: var(--md-shape-corner-medium) !important;
     background-color: var(--md-sys-color-surface-container) !important;
     font-weight: 600 !important;
     color: var(--md-sys-color-on-surface) !important;
     border: 1px solid var(--md-sys-color-outline-variant) !important;
-    padding: 10px 16px !important;
+    padding: 14px 22px !important;
 }
 
-.streamlit-expanderContent {
+.streamlit-expanderContent,
+[data-testid="stExpander"] details > div:last-child {
     border: 1px solid var(--md-sys-color-outline-variant) !important;
     border-top: none !important;
     border-radius: 0 0 var(--md-shape-corner-medium) var(--md-shape-corner-medium) !important;
     background-color: var(--md-sys-color-surface-container-lowest) !important;
-    padding: 1.2rem !important;
+    padding: 1.6rem 2rem !important;
 }
 
-/* Sidebar -> M3 Navigation Drawer (Responsive fluid % / vw, khóa kéo resize) */
-section[data-testid="stSidebar"],
-.stSidebar,
-[data-testid="stSidebar"] {
+[data-testid="stExpander"] {
+    margin-bottom: 1.5rem !important;
+}
+
+/* Sidebar -> M3 Navigation Drawer: Khóa cứng độ rộng bất biến 100% đồng nhất giữa tất cả các trang */
+section[data-testid="stSidebar"]:not([data-collapsed="true"]),
+.stSidebar:not([data-collapsed="true"]),
+[data-testid="stSidebar"]:not([data-collapsed="true"]) {
     background-color: var(--md-sys-color-surface-container-high) !important;
     border-right: 1px solid var(--md-sys-color-outline-variant) !important;
-    width: clamp(240px, 18vw, 320px) !important;
-    min-width: clamp(230px, 16vw, 250px) !important;
-    max-width: clamp(260px, 19vw, 330px) !important;
+    width: clamp(290px, 19.5vw, 320px) !important;
+    min-width: clamp(290px, 19.5vw, 320px) !important;
+    max-width: clamp(290px, 19.5vw, 320px) !important;
+    flex: 0 0 clamp(290px, 19.5vw, 320px) !important;
     resize: none !important;
     overflow-x: hidden !important;
+    box-sizing: border-box !important;
+}
+
+/* Sidebar khi bấm thu gọn (data-collapsed="true"): Triệt tiêu độ rộng & lề để nhường toàn bộ diện tích cho nội dung chính */
+section[data-testid="stSidebar"][data-collapsed="true"],
+.stSidebar[data-collapsed="true"],
+[data-testid="stSidebar"][data-collapsed="true"] {
+    width: 0px !important;
+    min-width: 0px !important;
+    max-width: 0px !important;
+    flex: 0 0 0px !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border: none !important;
+    overflow: hidden !important;
+    pointer-events: none !important;
+}
+
+/* Đảm bảo Main Viewport co giãn 100% lấp đầy toàn bộ màn hình khi thu gọn */
+.stAppViewContainer {
+    width: 100% !important;
+    max-width: 100% !important;
+}
+
+.stMain {
+    width: 100% !important;
+    max-width: 100% !important;
+    flex: 1 1 100% !important;
 }
 
 [data-testid="stSidebar"] * {
@@ -415,8 +624,10 @@ section[data-testid="stSidebar"],
 
 [data-testid="stSidebarUserContent"] {
     width: 100% !important;
-    padding-left: clamp(0.75rem, 1vw, 1.2rem) !important;
-    padding-right: clamp(0.75rem, 1vw, 1.2rem) !important;
+    padding-left: clamp(1.15rem, 1.4vw, 1.5rem) !important;
+    padding-right: clamp(1.15rem, 1.4vw, 1.5rem) !important;
+    padding-top: 1.6rem !important;
+    padding-bottom: 4rem !important;
     overflow-x: hidden !important;
 }
 
@@ -435,31 +646,66 @@ div[style*="col-resize"] {
     cursor: default !important;
 }
 
-/* Streamlit Header Bar: Đảm bảo trong suốt và không che khuất tiêu đề trang */
+/* Ẩn nút Deploy thừa trên localhost */
+.stAppDeployButton,
+[data-testid="stAppDeployButton"],
+.stDeployButton,
+[data-testid="stDeployButton"] {
+    display: none !important;
+}
+
+/* Ẩn container chứa thẻ <style> để triệt tiêu flex gap thừa phía trên tiêu đề */
+div[data-testid="stElementContainer"]:has(style):not(:has(.m3-card)):not(:has(.m3-display-title)):not(:has(.m3-banner)) {
+    display: none !important;
+}
+
+/* Streamlit Header Bar: Đảm bảo trong suốt, thu gọn tối đa và không che khuất tiêu đề trang */
 header[data-testid="stHeader"],
 .stHeader {
     background-color: transparent !important;
     background: transparent !important;
+    height: 2.25rem !important;
+    min-height: 2.25rem !important;
     pointer-events: none !important;
+    z-index: 99 !important;
 }
 
 header[data-testid="stHeader"] * {
     pointer-events: auto !important;
 }
 
-/* Main Container: Co giãn linh hoạt theo tỷ lệ phần trăm (Fluid % / vw / vh) */
+/* Main Container: Co giãn linh hoạt theo tỷ lệ phần trăm với padding thoáng đãng, rộng rãi */
 .block-container, [data-testid="stMainBlockContainer"] {
-    padding-top: clamp(4.2rem, 5.8vh, 5.5rem) !important;
-    padding-bottom: clamp(1.8rem, 3.5vh, 3.5rem) !important;
-    padding-left: clamp(1rem, 2.5vw, 2.8rem) !important;
-    padding-right: clamp(1rem, 2.5vw, 2.8rem) !important;
+    padding-top: clamp(2rem, 3.2vh, 3rem) !important;
+    padding-bottom: clamp(3.5rem, 6vh, 6rem) !important;
+    padding-left: clamp(1.8rem, 3.5vw, 4.2rem) !important;
+    padding-right: clamp(1.8rem, 3.5vw, 4.2rem) !important;
     max-width: 100% !important;
     width: 100% !important;
 }
 
 /* Sidebar Active Nav Link Pill (M3 Navigation Drawer Active Indicator) */
+[data-testid="stSidebarNav"] {
+    padding-top: 0.8rem !important;
+    padding-bottom: 1.2rem !important;
+    width: 100% !important;
+}
+
+[data-testid="stSidebarNav"] ul {
+    padding-left: 0.25rem !important;
+    padding-right: 0.25rem !important;
+    gap: 4px !important;
+    display: flex !important;
+    flex-direction: column !important;
+}
+
 [data-testid="stSidebarNav"] a {
     white-space: nowrap !important;
+    padding: 10px 18px !important;
+    margin-bottom: 4px !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
 }
 
 [data-testid="stSidebarNav"] a[aria-current="page"] {
@@ -475,27 +721,237 @@ header[data-testid="stHeader"] * {
     border-radius: var(--md-shape-corner-full) !important;
 }
 
-/* Dataframe & Tables */
+/* Biểu tượng vector SVG chuẩn Google Material Symbols cho thanh menu Sidebar */
+[data-testid="stSidebarNav"] a span[data-testid="stIconMaterial"] {
+    font-size: 0px !important;
+    line-height: 0 !important;
+    display: inline-block !important;
+    width: 22px !important;
+    height: 22px !important;
+    color: transparent !important;
+    background-color: var(--md-sys-color-on-surface-variant, #444746) !important;
+    -webkit-mask-size: contain !important;
+    mask-size: contain !important;
+    -webkit-mask-repeat: no-repeat !important;
+    mask-repeat: no-repeat !important;
+    -webkit-mask-position: center !important;
+    mask-position: center !important;
+    vertical-align: middle !important;
+    flex-shrink: 0 !important;
+}
+
+[data-testid="stSidebarNav"] a[aria-current="page"] span[data-testid="stIconMaterial"] {
+    background-color: var(--md-sys-color-primary, #0B57D0) !important;
+}
+
+[data-testid="stSidebarNav"] a:hover:not([aria-current="page"]) span[data-testid="stIconMaterial"] {
+    background-color: var(--md-sys-color-primary, #0B57D0) !important;
+}
+
+/* 1. Tổng Quan (dashboard) */
+[data-testid="stSidebarNav"] a[href$="/"] span[data-testid="stIconMaterial"],
+[data-testid="stSidebarNav"] a[href$=":8501/"] span[data-testid="stIconMaterial"],
+[data-testid="stSidebarNav"] a[href$=":8501"] span[data-testid="stIconMaterial"] {
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z'/%3E%3C/svg%3E") !important;
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z'/%3E%3C/svg%3E") !important;
+}
+
+/* 2. Quản Lý Bài Tập (task) */
+[data-testid="stSidebarNav"] a[href*="/tasks"] span[data-testid="stIconMaterial"] {
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z'/%3E%3C/svg%3E") !important;
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z'/%3E%3C/svg%3E") !important;
+}
+
+/* 3. Điều Khiển Thí Nghiệm (rocket) */
+[data-testid="stSidebarNav"] a[href*="/experiments"] span[data-testid="stIconMaterial"] {
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2.5s4 3.5 4 8.5c0 2.5-1 4.5-2 5.5l1.5 2.5-2.5-.5-1.5 3-1.5-3-2.5.5L9 16.5c-1-1-2-3-2-5.5 0-5 4-8.5 4-8.5zm0 5a2 2 0 100 4 2 2 0 000-4z'/%3E%3C/svg%3E") !important;
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2.5s4 3.5 4 8.5c0 2.5-1 4.5-2 5.5l1.5 2.5-2.5-.5-1.5 3-1.5-3-2.5.5L9 16.5c-1-1-2-3-2-5.5 0-5 4-8.5 4-8.5zm0 5a2 2 0 100 4 2 2 0 000-4z'/%3E%3C/svg%3E") !important;
+}
+
+/* 4. Chi Tiết Lần Chạy (inspect) */
+[data-testid="stSidebarNav"] a[href*="/inspect"] span[data-testid="stIconMaterial"] {
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M7 9H2V7h5v2zm0 3H2v-2h5v2zm13.59 7-3.83-3.83c-.8.52-1.74.83-2.76.83-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5c0 1.02-.31 1.96-.83 2.75L22 17.59 20.59 19zM14 11c0 1.66 1.34 3 3 3s3-1.34 3-3-1.34-3-3-3-3 1.34-3 3zM2 15h10v-2H2v2z'/%3E%3C/svg%3E") !important;
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M7 9H2V7h5v2zm0 3H2v-2h5v2zm13.59 7-3.83-3.83c-.8.52-1.74.83-2.76.83-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5c0 1.02-.31 1.96-.83 2.75L22 17.59 20.59 19zM14 11c0 1.66 1.34 3 3 3s3-1.34 3-3-1.34-3-3-3-3 1.34-3 3zM2 15h10v-2H2v2z'/%3E%3C/svg%3E") !important;
+}
+
+/* 5. Chấm Điểm Ẩn Danh (rating) */
+[data-testid="stSidebarNav"] a[href*="/rating"] span[data-testid="stIconMaterial"] {
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M1 21h12v2H1zM5.245 8.07l2.83-2.827 8.995 8.994-2.828 2.829zM12.317 1l5.657 5.656-2.828 2.83-5.657-5.658zM21.503 14.435l1.414 1.415-5.656 5.656-1.415-1.414z'/%3E%3C/svg%3E") !important;
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M1 21h12v2H1zM5.245 8.07l2.83-2.827 8.995 8.994-2.828 2.829zM12.317 1l5.657 5.656-2.828 2.83-5.657-5.658zM21.503 14.435l1.414 1.415-5.656 5.656-1.415-1.414z'/%3E%3C/svg%3E") !important;
+}
+
+/* 6. Phân Tích & Biểu Đồ (analytics) */
+[data-testid="stSidebarNav"] a[href*="/analytics"] span[data-testid="stIconMaterial"] {
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z'/%3E%3C/svg%3E") !important;
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z'/%3E%3C/svg%3E") !important;
+}
+
+/* 7. Cấu Hình & Trọng Số (weights) */
+[data-testid="stSidebarNav"] a[href*="/weights"] span[data-testid="stIconMaterial"] {
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M3 17v2h6v-2H3zM3 5v2h10V5H3zm10 16v-2h8v-2h-8v-2h-2v6h2zM7 9v2H3v2h4v2h2V9H7zm14 4v-2H11v2h10zm-6-4h2V7h4V5h-4V3h-2v6z'/%3E%3C/svg%3E") !important;
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M3 17v2h6v-2H3zM3 5v2h10V5H3zm10 16v-2h8v-2h-8v-2h-2v6h2zM7 9v2H3v2h4v2h2V9H7zm14 4v-2H11v2h10zm-6-4h2V7h4V5h-4V3h-2v6z'/%3E%3C/svg%3E") !important;
+}
+
+/* 8. Xuất Báo Cáo (export) */
+[data-testid="stSidebarNav"] a[href*="/export"] span[data-testid="stIconMaterial"] {
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z'/%3E%3C/svg%3E") !important;
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z'/%3E%3C/svg%3E") !important;
+}
+
+/* Dataframe & Tables -> M3 Elevated Table Container */
 [data-testid="stDataFrame"], [data-testid="stTable"] {
     border-radius: var(--md-shape-corner-large) !important;
     overflow: hidden !important;
     box-shadow: var(--md-elevation-1) !important;
     border: 1px solid var(--md-sys-color-outline-variant) !important;
     background-color: var(--md-sys-color-surface-container-lowest) !important;
+    padding: 10px !important;
+    margin: 1.4rem 0 !important;
 }
 
-/* Sliders -> M3 Slider Accent */
+/* Sliders -> M3 Slider Accent with Padding */
+.stSlider {
+    padding: 0.6rem 0.25rem 1.25rem 0.25rem !important;
+    margin-bottom: 1rem !important;
+}
+
 .stSlider [data-baseweb="slider"] {
-    padding-top: 10px !important;
+    padding-top: 12px !important;
+}
+
+.stSlider [data-baseweb="slider"] div[role="slider"] {
+    background-color: var(--md-sys-color-primary) !important;
+    border: 2px solid #FFFFFF !important;
+    box-shadow: var(--md-elevation-2) !important;
+    width: 20px !important;
+    height: 20px !important;
+}
+
+.stSlider [data-baseweb="slider"] div:has(> div[role="slider"]) {
+    height: 6px !important;
+    border-radius: var(--md-shape-corner-full) !important;
+}
+
+/* Progress Bar -> M3 Linear Progress Indicator */
+.stProgress > div > div > div > div {
+    background: linear-gradient(90deg, var(--md-sys-color-primary) 0%, var(--md-sys-color-secondary) 100%) !important;
+    border-radius: var(--md-shape-corner-full) !important;
+    height: 8px !important;
+}
+
+.stProgress > div > div > div {
+    background-color: var(--md-sys-color-surface-container-highest) !important;
+    border-radius: var(--md-shape-corner-full) !important;
+    height: 8px !important;
+    overflow: hidden !important;
+}
+
+/* File Uploader -> M3 File Dropzone Container */
+[data-testid="stFileUploader"] {
+    background-color: var(--md-sys-color-surface-container-low) !important;
+    border: 2px dashed var(--md-sys-color-outline-variant) !important;
+    border-radius: var(--md-shape-corner-large) !important;
+    padding: 1.8rem 2.2rem !important;
+    margin-bottom: 1.5rem !important;
+    transition: all 0.2s cubic-bezier(0.2, 0, 0, 1) !important;
+}
+
+[data-testid="stFileUploader"] [data-testid="stFileUploaderDropzone"],
+[data-testid="stFileUploaderDropzone"] {
+    padding: 1.4rem !important;
+}
+
+[data-testid="stFileUploader"]:hover {
+    border-color: var(--md-sys-color-primary) !important;
+    background-color: var(--md-sys-color-surface-container) !important;
+}
+
+[data-testid="stFileUploader"] button {
+    border-radius: var(--md-shape-corner-full) !important;
+    background-color: var(--md-sys-color-secondary-container) !important;
+    color: var(--md-sys-color-on-secondary-container) !important;
+    font-weight: 600 !important;
+    border: none !important;
+    padding: 0.6rem 1.4rem !important;
+}
+
+/* Radio Buttons & Checkboxes -> M3 Selection Controls */
+.stRadio > div, [data-testid="stRadio"] > div {
+    gap: 12px !important;
+}
+
+.stRadio [data-testid="stWidgetLabel"] p,
+.stCheckbox [data-testid="stWidgetLabel"] p {
+    font-weight: 600 !important;
+    color: var(--md-sys-color-on-surface) !important;
+    font-size: 0.95rem !important;
+    margin-bottom: 8px !important;
+}
+
+.stRadio div[role="radiogroup"] label,
+[data-testid="stRadio"] label,
+.stCheckbox label,
+[data-testid="stCheckbox"] label {
+    background: var(--md-sys-color-surface-container-lowest) !important;
+    border: 1px solid var(--md-sys-color-outline-variant) !important;
+    border-radius: var(--md-shape-corner-medium) !important;
+    padding: 10px 18px !important;
+    margin: 4px 0 !important;
+    transition: all 0.2s ease !important;
+    cursor: pointer !important;
+}
+
+.stRadio div[role="radiogroup"] label:hover,
+[data-testid="stRadio"] label:hover,
+.stCheckbox label:hover,
+[data-testid="stCheckbox"] label:hover {
+    background: var(--md-sys-color-surface-container) !important;
+    border-color: var(--md-sys-color-primary) !important;
+}
+
+.stRadio div[role="radiogroup"] label:has(input:checked),
+[data-testid="stRadio"] label:has(input:checked) {
+    background: var(--md-sys-color-primary-container) !important;
+    border-color: var(--md-sys-color-primary) !important;
+    color: var(--md-sys-color-on-primary-container) !important;
+    font-weight: 700 !important;
+}
+
+/* Code Blocks -> M3 Dark Surface Container */
+.stCode, [data-testid="stCode"] {
+    background-color: #1A1C1E !important;
+    border: 1px solid #444746 !important;
+    border-radius: var(--md-shape-corner-medium) !important;
+    overflow: hidden !important;
+    margin: 1.4rem 0 !important;
+    padding: 2px !important;
+}
+
+.stCode pre {
+    background-color: transparent !important;
+    font-family: 'Roboto Flex', 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace !important;
+    font-size: 0.88rem !important;
+    line-height: 1.65 !important;
+    padding: 1.35rem 1.75rem !important;
+    color: #E2E2E6 !important;
+}
+
+/* Dividers -> M3 Outline Variant */
+hr, [data-testid="stDivider"] {
+    border: none !important;
+    border-top: 1px solid var(--md-sys-color-outline-variant) !important;
+    margin: 2rem 0 !important;
+    opacity: 0.8 !important;
 }
 
 /* Metrics -> M3 Metric Container */
 [data-testid="stMetric"] {
     background-color: var(--md-sys-color-surface-container) !important;
-    padding: 12px 18px !important;
+    padding: 18px 24px !important;
     border-radius: var(--md-shape-corner-large) !important;
     border: 1px solid var(--md-sys-color-outline-variant) !important;
     box-shadow: var(--md-elevation-1) !important;
+    margin-bottom: 0.85rem !important;
 }
 
 [data-testid="stMetricValue"] {
@@ -508,15 +964,27 @@ header[data-testid="stHeader"] * {
     color: var(--md-sys-color-on-surface-variant) !important;
 }
 
+/* Streamlit Columns & Horizontal Blocks: Bổ sung khoảng đệm giữa các cột */
+[data-testid="column"] {
+    padding: 0.5rem 0.8rem !important;
+}
+
+div[data-testid="stHorizontalBlock"] {
+    gap: 1.25rem !important;
+}
+
 /* Alerts / Notification Callouts */
 .stAlert {
     border-radius: var(--md-shape-corner-medium) !important;
     border: none !important;
     box-shadow: var(--md-elevation-1) !important;
+    padding: 16px 22px !important;
+    margin-bottom: 1.4rem !important;
 }
 
 div[data-testid="stNotification"] {
     border-radius: var(--md-shape-corner-medium) !important;
+    padding: 14px 20px !important;
 }
 </style>
 """
