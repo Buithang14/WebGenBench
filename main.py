@@ -498,5 +498,19 @@ def inspect_run_cli(run_id: str):
     logger.success(f"Truy vết thành công dữ liệu lượt chạy [{run_id}] từ CSDL SQLite!")
 
 
+@cli.command(name="dashboard")
+@click.option("--port", "-p", default=8501, type=int, help="Cổng chạy Streamlit Web Server (mặc định: 8501)")
+def dashboard_cli(port: int):
+    """Khởi động Giao diện Web Dashboard (Streamlit) của WebGenBench trên trình duyệt."""
+    import subprocess
+    app_path = BASE_DIR / "dashboard" / "app.py"
+    logger.info(f">>> Đang khởi động Web Dashboard tại: http://localhost:{port} ...")
+    cmd = [sys.executable, "-m", "streamlit", "run", str(app_path), "--server.port", str(port)]
+    try:
+        subprocess.run(cmd)
+    except KeyboardInterrupt:
+        logger.info("Đã dừng Web Dashboard.")
+
+
 if __name__ == "__main__":
     cli()

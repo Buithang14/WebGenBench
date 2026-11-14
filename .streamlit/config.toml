@@ -1,0 +1,13 @@
+[theme]
+primaryColor = "#0B57D0"
+backgroundColor = "#F8F9FA"
+secondaryBackgroundColor = "#EDF2FA"
+textColor = "#1F1F1F"
+font = "sans serif"
+
+[client]
+showErrorDetails = true
+
+[browser]
+gatherUsageStats = false
+
