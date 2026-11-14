@@ -17,6 +17,7 @@ from config.logger import logger
 from storage.models import (
     Base,
     Experiment,
+    Task,
     Run,
     GeneratedProject,
     Screenshot,
@@ -50,10 +51,15 @@ class DBManager:
         self.engine = create_engine(self.db_url, echo=echo, connect_args={"check_same_thread": False})
         self.SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=self.engine)
 
-    def init_db(self) -> None:
+    def init_db(self, auto_sync_tasks: bool = True) -> None:
         """Khởi tạo toàn bộ các bảng trong cơ sở dữ liệu nếu chưa có."""
         Base.metadata.create_all(bind=self.engine)
         logger.info(f"Đã khởi tạo/xác thực lược đồ CSDL tại: {self.db_url}")
+        if auto_sync_tasks:
+            try:
+                self.sync_all_tasks_from_disk()
+            except Exception as e:
+                logger.warning(f"Không thể tự động đồng bộ bài tập vào SQLite: {e}")
 
     @contextmanager
     def get_session(self):
@@ -67,6 +73,171 @@ class DBManager:
             raise
         finally:
             session.close()
+
+    def sync_task_from_disk(self, task_id: str, session: Optional[Session] = None) -> Dict[str, Any]:
+        """Đọc định nghĩa Task từ thư mục tasks/ và đồng bộ (upsert) vào bảng tasks trong SQLite."""
+        from experiment.task_loader import load_task
+
+        task_data = load_task(task_id)
+        meta = task_data.meta
+        prompt_text = task_data.prompt_text
+
+        def _do_sync(s: Session) -> Dict[str, Any]:
+            task_obj = s.query(Task).filter(Task.task_id == meta.task_id).first()
+            if not task_obj:
+                task_obj = Task(
+                    task_id=meta.task_id,
+                    name=meta.name,
+                    title_vi=meta.title_vi,
+                    prompt_file=meta.prompt_file,
+                    prompt_text=prompt_text,
+                    reference_image=meta.reference_image,
+                    expected_files_json=json.dumps(meta.expected_files, ensure_ascii=False),
+                    ui_requirements_json=json.dumps(meta.ui_requirements, ensure_ascii=False),
+                    technical_requirements_json=json.dumps(meta.technical_requirements, ensure_ascii=False),
+                )
+                s.add(task_obj)
+            else:
+                task_obj.name = meta.name
+                task_obj.title_vi = meta.title_vi
+                task_obj.prompt_file = meta.prompt_file
+                task_obj.prompt_text = prompt_text
+                task_obj.reference_image = meta.reference_image
+                task_obj.expected_files_json = json.dumps(meta.expected_files, ensure_ascii=False)
+                task_obj.ui_requirements_json = json.dumps(meta.ui_requirements, ensure_ascii=False)
+                task_obj.technical_requirements_json = json.dumps(meta.technical_requirements, ensure_ascii=False)
+            s.flush()
+            return {"task_id": meta.task_id, "name": meta.name, "status": "SYNCED"}
+
+        if session is not None:
+            return _do_sync(session)
+        else:
+            with self.get_session() as s:
+                return _do_sync(s)
+
+    def sync_all_tasks_from_disk(self) -> int:
+        """Đồng bộ toàn bộ các Task có sẵn trong thư mục tasks/ vào SQLite."""
+        from experiment.task_loader import list_available_tasks
+
+        available = list_available_tasks()
+        count = 0
+        with self.get_session() as session:
+            for tid in available:
+                try:
+                    self.sync_task_from_disk(tid, session=session)
+                    count += 1
+                except Exception as e:
+                    logger.warning(f"Lỗi khi sync bài tập '{tid}' vào SQLite: {e}")
+        logger.info(f"Đã đồng bộ {count}/{len(available)} bài tập vào bảng tasks trong SQLite.")
+        return count
+
+    def get_task(self, task_id: str) -> Optional[Dict[str, Any]]:
+        """Lấy thông tin chi tiết của bài tập từ SQLite."""
+        with self.get_session() as session:
+            t = session.query(Task).filter(Task.task_id == task_id).first()
+            if not t:
+                return None
+            return {
+                "task_id": t.task_id,
+                "name": t.name,
+                "title_vi": t.title_vi,
+                "prompt_file": t.prompt_file,
+                "prompt_text": t.prompt_text,
+                "reference_image": t.reference_image,
+                "expected_files": json.loads(t.expected_files_json or "[]"),
+                "ui_requirements": json.loads(t.ui_requirements_json or "[]"),
+                "technical_requirements": json.loads(t.technical_requirements_json or "[]"),
+                "created_at": t.created_at.isoformat() if t.created_at else None,
+                "runs_count": len(t.runs) if t.runs else 0,
+            }
+
+    def list_all_tasks(self) -> List[Dict[str, Any]]:
+        """Liệt kê toàn bộ danh sách bài tập từ SQLite."""
+        with self.get_session() as session:
+            tasks = session.query(Task).order_by(Task.task_id).all()
+            results = []
+            for t in tasks:
+                results.append({
+                    "task_id": t.task_id,
+                    "name": t.name,
+                    "title_vi": t.title_vi,
+                    "prompt_file": t.prompt_file,
+                    "prompt_text": t.prompt_text,
+                    "reference_image": t.reference_image,
+                    "expected_files": json.loads(t.expected_files_json or "[]"),
+                    "ui_requirements": json.loads(t.ui_requirements_json or "[]"),
+                    "technical_requirements": json.loads(t.technical_requirements_json or "[]"),
+                    "created_at": t.created_at.isoformat() if t.created_at else None,
+                    "runs_count": len(t.runs) if t.runs else 0,
+                })
+            return results
+
+    def save_task(
+        self,
+        task_id: str,
+        name: str,
+        title_vi: str,
+        prompt_text: str,
+        ui_requirements: List[str],
+        technical_requirements: List[str],
+        expected_files: Optional[List[str]] = None,
+        reference_image: Optional[str] = None,
+        sync_to_disk: bool = True,
+    ) -> Dict[str, Any]:
+        """Lưu hoặc cập nhật bài tập vào SQLite, đồng thời tùy chọn xuất ngược ra thư mục tasks/."""
+        expected_files = expected_files or ["index.html", "style.css", "script.js"]
+        reference_image = reference_image or f"designs/{task_id}_reference.png"
+        prompt_file = f"tasks/{task_id}_{name.lower().replace(' ', '_')}/prompt.txt"
+
+        with self.get_session() as session:
+            task_obj = session.query(Task).filter(Task.task_id == task_id).first()
+            if not task_obj:
+                task_obj = Task(
+                    task_id=task_id,
+                    name=name,
+                    title_vi=title_vi,
+                    prompt_file=prompt_file,
+                    prompt_text=prompt_text,
+                    reference_image=reference_image,
+                    expected_files_json=json.dumps(expected_files, ensure_ascii=False),
+                    ui_requirements_json=json.dumps(ui_requirements, ensure_ascii=False),
+                    technical_requirements_json=json.dumps(technical_requirements, ensure_ascii=False),
+                )
+                session.add(task_obj)
+            else:
+                task_obj.name = name
+                task_obj.title_vi = title_vi
+                task_obj.prompt_text = prompt_text
+                task_obj.reference_image = reference_image
+                task_obj.expected_files_json = json.dumps(expected_files, ensure_ascii=False)
+                task_obj.ui_requirements_json = json.dumps(ui_requirements, ensure_ascii=False)
+                task_obj.technical_requirements_json = json.dumps(technical_requirements, ensure_ascii=False)
+
+        if sync_to_disk:
+            import yaml
+            safe_slug = name.lower().replace(" ", "_").replace("-", "_")
+            task_dir = BASE_DIR / "tasks" / f"{task_id}_{safe_slug}"
+            task_dir.mkdir(parents=True, exist_ok=True)
+
+            p_file = task_dir / "prompt.txt"
+            p_file.write_text(prompt_text.strip(), encoding="utf-8")
+
+            meta_data = {
+                "task_id": task_id,
+                "name": name,
+                "title_vi": title_vi,
+                "prompt_file": f"tasks/{task_dir.name}/prompt.txt",
+                "reference_image": reference_image,
+                "expected_files": expected_files,
+                "ui_requirements": ui_requirements,
+                "technical_requirements": technical_requirements,
+            }
+            m_file = task_dir / "task_meta.yaml"
+            with open(m_file, "w", encoding="utf-8") as f:
+                yaml.dump(meta_data, f, allow_unicode=True, default_flow_style=False)
+
+        logger.info(f"Đã lưu thành công bài tập '{task_id}' (DB + Disk Sync).")
+        return {"task_id": task_id, "name": name, "status": "SAVED"}
 
     def sync_run_from_disk(
         self,
@@ -105,6 +276,15 @@ class DBManager:
                 logger.warning(f"Lỗi khi đọc metrics_report.json của {run_id}: {e}")
 
         with self.get_session() as session:
+            # Đảm bảo bài test tương ứng đã có trong bảng tasks
+            task_id = run_meta.get("task_id", "T01")
+            task_obj = session.query(Task).filter(Task.task_id == task_id).first()
+            if not task_obj:
+                try:
+                    self.sync_task_from_disk(task_id, session=session)
+                except Exception as e:
+                    logger.warning(f"Không thể tự động sync task '{task_id}': {e}")
+
             # 1. Đồng bộ bảng runs
             run_obj = session.query(Run).filter(Run.id == run_id).first()
             blind_code = run_meta.get("blind_code") or f"Sample_{run_id}"
@@ -330,8 +510,23 @@ class DBManager:
                     "rated_at": hr.rated_at.isoformat() if hr.rated_at else None,
                 })
 
+            # 7. Task Registry
+            task_dict = {}
+            if run.task:
+                task_dict = {
+                    "task_id": run.task.task_id,
+                    "name": run.task.name,
+                    "title_vi": run.task.title_vi,
+                    "prompt_file": run.task.prompt_file,
+                    "reference_image": run.task.reference_image,
+                    "expected_files": json.loads(run.task.expected_files_json or "[]"),
+                    "ui_requirements": json.loads(run.task.ui_requirements_json or "[]"),
+                    "technical_requirements": json.loads(run.task.technical_requirements_json or "[]"),
+                }
+
             return {
                 "run": run_dict,
+                "task": task_dict,
                 "project": proj_dict,
                 "screenshots": screenshots_list,
                 "automatic_metrics": metrics_dict,

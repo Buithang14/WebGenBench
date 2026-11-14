@@ -9,6 +9,7 @@ if str(ROOT_DIR) not in sys.path:
     sys.path.insert(0, str(ROOT_DIR))
 
 from experiment.task_loader import list_available_tasks, load_task, find_task_directory
+from storage.db_manager import DBManager
 from dashboard.theme import (
     apply_m3_theme,
     m3_header,
@@ -101,6 +102,11 @@ if show_create_modal or st.session_state.get("is_creating_task", False):
                     with open(meta_file, "w", encoding="utf-8") as f:
                         yaml.dump(meta_content, f, allow_unicode=True, default_flow_style=False)
                     
+                    try:
+                        DBManager().sync_task_from_disk(new_id)
+                    except Exception:
+                        pass
+
                     st.session_state["is_creating_task"] = False
                     st.success(f"Đã tạo thành công bài tập [{new_id}] {new_name}!")
                     st.rerun()
@@ -164,6 +170,10 @@ with col_editor:
         if st.button("Lưu Prompt", type="primary", icon=":material/save:", use_container_width=True):
             try:
                 prompt_file_path.write_text(edited_prompt.strip(), encoding="utf-8")
+                try:
+                    DBManager().sync_task_from_disk(selected_task_id)
+                except Exception:
+                    pass
                 st.success("Đã lưu nội dung Prompt thành công!")
                 st.rerun()
             except Exception as e:
@@ -217,6 +227,11 @@ with col_editor:
                 with open(meta_file_path, "w", encoding="utf-8") as f:
                     yaml.dump(curr_meta, f, allow_unicode=True, default_flow_style=False)
                 
+                try:
+                    DBManager().sync_task_from_disk(selected_task_id)
+                except Exception:
+                    pass
+
                 st.success("Đã cập nhật danh sách yêu cầu thành công!")
                 st.rerun()
             except Exception as e:
