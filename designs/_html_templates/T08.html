@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<style>
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: #F8FAFC;
+    color: #0F172A;
+    width: 1440px;
+    height: 900px;
+    overflow: hidden;
+    position: relative;
+    -webkit-font-smoothing: antialiased;
+}
+input, button, select, textarea { font-family: inherit; }
+
+.navbar {
+    height: 80px;
+    padding: 0 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: transparent;
+}
+.brand {
+    font-size: 24px;
+    font-weight: 800;
+    color: #0F172A;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.brand-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #0B57D0;
+}
+.nav-links {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+}
+.nav-links a {
+    color: #475569;
+    text-decoration: none;
+    font-size: 14.5px;
+    font-weight: 600;
+}
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+.btn-login {
+    background: none;
+    border: none;
+    font-size: 14px;
+    font-weight: 600;
+    color: #334155;
+    cursor: pointer;
+}
+.btn-primary {
+    background: #0B57D0;
+    color: white;
+    padding: 10px 22px;
+    border-radius: 9999px;
+    border: none;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(11, 87, 208, 0.25);
+}
+.hero {
+    padding: 50px 80px 40px 80px;
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+    gap: 50px;
+    align-items: center;
+}
+.badge-pill {
+    background: #EFF6FF;
+    border: 1px solid #BFDBFE;
+    color: #1D4ED8;
+    font-size: 12.5px;
+    font-weight: 700;
+    padding: 6px 16px;
+    border-radius: 9999px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+h1 {
+    font-size: 46px;
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -1.2px;
+    color: #0F172A;
+    margin-bottom: 18px;
+}
+h1 span {
+    color: #0B57D0;
+    background: linear-gradient(135deg, #0B57D0 0%, #2563EB 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+p.hero-desc {
+    font-size: 16px;
+    color: #64748B;
+    line-height: 1.6;
+    margin-bottom: 32px;
+    max-width: 540px;
+}
+.cta-group {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 44px;
+}
+.btn-cta-main {
+    background: #0B57D0;
+    color: white;
+    padding: 14px 30px;
+    border-radius: 12px;
+    border: none;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(11, 87, 208, 0.3);
+}
+.btn-cta-secondary {
+    background: #FFFFFF;
+    color: #334155;
+    border: 1px solid #CBD5E1;
+    padding: 14px 24px;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.social-proof {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+.proof-item {
+    font-size: 12.5px;
+    color: #64748B;
+    font-weight: 600;
+}
+.mockup-card {
+    background: #FFFFFF;
+    border-radius: 20px;
+    border: 1px solid #E2E8F0;
+    box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+}
+.mockup-topbar {
+    height: 38px;
+    background: #F1F5F9;
+    border-bottom: 1px solid #E2E8F0;
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    gap: 8px;
+}
+.mockup-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+.mockup-content {
+    padding: 24px;
+    background: #FAFAFA;
+}
+.mockup-kpi {
+    background: white;
+    border: 1px solid #E2E8F0;
+    border-radius: 12px;
+    padding: 18px;
+    margin-bottom: 14px;
+}
+.mockup-chart-bar {
+    height: 120px;
+    background: linear-gradient(180deg, rgba(11,87,208,0.15) 0%, rgba(11,87,208,0.02) 100%);
+    border-radius: 8px;
+    border-bottom: 2px solid #0B57D0;
+    display: flex;
+    align-items: flex-end;
+    padding: 10px;
+    gap: 12px;
+}
+</style>
+</head>
+<body>
+<div class="navbar">
+    <div class="brand"><div class="brand-dot"></div>Nexus<span>AI</span></div>
+    <ul class="nav-links">
+        <li><a href="#">Products</a></li>
+        <li><a href="#">Benchmark Suite</a></li>
+        <li><a href="#">Research Papers</a></li>
+        <li><a href="#">Documentation</a></li>
+    </ul>
+    <div class="nav-actions">
+        <button class="btn-login">Sign In</button>
+        <button class="btn-primary">Get Started Free</button>
+    </div>
+</div>
+
+<div class="hero">
+    <div>
+        <div class="badge-pill">🚀 WebGenBench 2026 Scientific Suite</div>
+        <h1>Next-Gen AI Automated <span>UI Synthesis</span></h1>
+        <p class="hero-desc">Benchmark autonomous AI coding agents against production design criteria. Measure HTML validity, responsive geometry, accessibility, and visual fidelity in seconds.</p>
+        
+        <div class="cta-group">
+            <button class="btn-cta-main">Start Free Benchmark</button>
+            <button class="btn-cta-secondary">▶ Watch 2-min Demo</button>
+        </div>
+
+        <div class="social-proof">
+            <span class="proof-item">✓ 144 Runs Evaluated</span>
+            <span class="proof-item">✓ 6 Metric Engines</span>
+            <span class="proof-item">✓ Fleiss' Kappa Validated</span>
+        </div>
+    </div>
+
+    <div>
+        <div class="mockup-card">
+            <div class="mockup-topbar">
+                <div class="mockup-dot" style="background:#EF4444;"></div>
+                <div class="mockup-dot" style="background:#F59E0B;"></div>
+                <div class="mockup-dot" style="background:#10B981;"></div>
+            </div>
+            <div class="mockup-content">
+                <div class="mockup-kpi">
+                    <div style="font-size:12px; color:#64748B; font-weight:600;">EVALUATION SCORE</div>
+                    <div style="font-size:28px; font-weight:800; color:#0B57D0;">96.8 / 100</div>
+                </div>
+                <div class="mockup-chart-bar">
+                    <div style="height:40%; width:16%; background:#93C5FD; border-radius:4px 4px 0 0;"></div>
+                    <div style="height:70%; width:16%; background:#60A5FA; border-radius:4px 4px 0 0;"></div>
+                    <div style="height:55%; width:16%; background:#3B82F6; border-radius:4px 4px 0 0;"></div>
+                    <div style="height:90%; width:16%; background:#0B57D0; border-radius:4px 4px 0 0;"></div>
+                    <div style="height:65%; width:16%; background:#1D4ED8; border-radius:4px 4px 0 0;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
