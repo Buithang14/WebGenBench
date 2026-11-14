@@ -24,7 +24,6 @@ apply_m3_theme()
 
 m3_header(
     title="Trung Tâm Xuất Dữ Liệu (Export Center)",
-    subtitle="Màn hình 5 theo Kế hoạch: Xuất dữ liệu thực nghiệm dạng phẳng (.CSV cho SPSS/R/Excel), báo cáo JSON và tóm tắt Markdown cho khóa luận",
     icon_name="download"
 )
 

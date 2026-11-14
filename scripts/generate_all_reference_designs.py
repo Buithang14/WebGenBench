@@ -8,8 +8,6 @@ from playwright.sync_api import sync_playwright
 
 DESIGNS_DIR = Path("d:/WebGenBench/designs")
 DESIGNS_DIR.mkdir(parents=True, exist_ok=True)
-TEMP_HTML_DIR = Path("d:/WebGenBench/designs/_html_templates")
-TEMP_HTML_DIR.mkdir(parents=True, exist_ok=True)
 
 SHARED_CSS = """
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -2035,12 +2033,9 @@ def generate_all_designs():
         page = browser.new_page(viewport={"width": 1440, "height": 900})
 
         for task_id, html_content in TEMPLATES.items():
-            temp_file = TEMP_HTML_DIR / f"{task_id}.html"
-            temp_file.write_text(html_content, encoding="utf-8")
-
-            url = f"file:///{temp_file.resolve().as_posix()}"
-            page.goto(url, wait_until="load")
-            page.wait_for_timeout(400)
+            # Render directly from in-memory HTML without creating temp files on disk
+            page.set_content(html_content, wait_until="load")
+            page.wait_for_timeout(300)
 
             out_png = DESIGNS_DIR / f"{task_id}_reference.png"
             page.screenshot(path=str(out_png))
@@ -2051,7 +2046,7 @@ def generate_all_designs():
             page.screenshot(path=str(artifact_png))
 
         browser.close()
-    print("All 8 Reference Designs generated successfully!")
+    print("All 8 Reference Designs generated successfully without any HTML template files on disk!")
 
 if __name__ == "__main__":
     generate_all_designs()

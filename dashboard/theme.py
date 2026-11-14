@@ -95,13 +95,15 @@ html, body, p, div, label, .stMarkdown, .stText, .stButton, .stTextInput, .stSel
     font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
 }
 
-span:not([data-testid="stIconMaterial"]):not([data-testid="stIconMaterial"] *) {
+span:not([data-testid="stIconMaterial"]):not([data-testid="stIconMaterial"] *):not([data-testid="stExpanderIcon"]):not([data-testid="stExpanderIcon"] *) {
     font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
 /* Ensure Material Symbols are NEVER overridden by general typography */
 [data-testid="stIconMaterial"],
 [data-testid="stIconMaterial"] *,
+[data-testid="stExpanderIcon"],
+[data-testid="stExpanderIcon"] *,
 .material-symbols-rounded,
 .material-symbols-outlined,
 .material-icons {
@@ -381,7 +383,6 @@ span:not([data-testid="stIconMaterial"]):not([data-testid="stIconMaterial"] *) {
 /* Inputs & Form Fields -> M3 Outlined Text Field with Generous Padding */
 .stTextInput > div > div > input,
 .stSelectbox > div > div,
-.stMultiSelect > div > div,
 .stNumberInput > div > div > input,
 .stTextArea textarea {
     border-radius: var(--md-shape-corner-medium) !important;
@@ -394,8 +395,73 @@ span:not([data-testid="stIconMaterial"]):not([data-testid="stIconMaterial"] *) {
     transition: border 0.15s ease, box-shadow 0.15s ease !important;
 }
 
+.stMultiSelect [data-rac][role="group"] {
+    border-radius: var(--md-shape-corner-medium) !important;
+    border: 1px solid var(--md-sys-color-outline) !important;
+    background-color: var(--md-sys-color-surface-container-lowest) !important;
+    min-height: 44px !important;
+    padding: 4px 6px !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    align-items: center !important;
+}
+
+.stMultiSelect [data-testid="stMultiSelectTagsContainer"] {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 4px !important;
+    width: auto !important;
+    max-width: 100% !important;
+}
+
+.stMultiSelect [data-testid="stMultiSelectTagsContainer"] > span {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 4px !important;
+    width: auto !important;
+}
+
+.stMultiSelect input[data-rac] {
+    min-width: 28px !important;
+    flex: 1 1 28px !important;
+    width: auto !important;
+}
+
 .stTextInput, .stSelectbox, .stMultiSelect, .stNumberInput, .stTextArea {
     margin-bottom: 0.85rem !important;
+}
+
+/* Multiselect Tags -> Material 3 Filter Chips */
+[data-testid="stMultiSelect"] span[data-tag],
+[data-baseweb="tag"] {
+    background-color: var(--md-sys-color-primary) !important;
+    color: var(--md-sys-color-on-primary) !important;
+    border-radius: 8px !important;
+    padding: 3px 8px !important;
+    margin: 2px 2px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    width: auto !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+}
+[data-testid="stMultiSelect"] span[data-tag] > span,
+[data-baseweb="tag"] > span {
+    color: var(--md-sys-color-on-primary) !important;
+    font-size: 0.86rem !important;
+    font-weight: 600 !important;
+    display: inline-block !important;
+    width: auto !important;
+}
+[data-testid="stMultiSelect"] span[data-tag] button,
+[data-baseweb="tag"] button {
+    color: var(--md-sys-color-on-primary) !important;
+}
+[data-testid="stMultiSelect"] span[data-tag] svg,
+[data-baseweb="tag"] svg {
+    stroke: var(--md-sys-color-on-primary) !important;
+    fill: var(--md-sys-color-on-primary) !important;
 }
 
 [data-testid="stWidgetLabel"] {
@@ -563,6 +629,7 @@ h4, h5 {
 }
 
 .streamlit-expanderContent,
+[data-testid="stExpanderDetails"],
 [data-testid="stExpander"] details > div:last-child {
     border: 1px solid var(--md-sys-color-outline-variant) !important;
     border-top: none !important;
@@ -573,6 +640,51 @@ h4, h5 {
 
 [data-testid="stExpander"] {
     margin-bottom: 1.5rem !important;
+}
+
+/* Sidebar Expander Customization: gọn gàng chuẩn M3 trong thanh điều hướng */
+section[data-testid="stSidebar"] [data-testid="stExpander"] details summary,
+.stSidebar [data-testid="stExpander"] details summary {
+    padding: 10px 14px !important;
+    font-size: 0.92rem !important;
+}
+
+section[data-testid="stSidebar"] [data-testid="stExpanderDetails"],
+section[data-testid="stSidebar"] [data-testid="stExpander"] details > div:last-child,
+.stSidebar [data-testid="stExpanderDetails"],
+.stSidebar [data-testid="stExpander"] details > div:last-child {
+    padding: 10px 8px !important;
+}
+
+[data-testid="stSidebar"] [data-testid="stExpander"] {
+    margin-top: 10px !important;
+    margin-bottom: 1rem !important;
+}
+
+/* Sidebar MultiSelect Tag styling: không bị co rúm chữ */
+[data-testid="stSidebar"] [data-testid="stMultiSelect"] span[data-tag],
+.stSidebar [data-testid="stMultiSelect"] span[data-tag] {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 4px !important;
+    min-width: 46px !important;
+    width: auto !important;
+    flex-shrink: 0 !important;
+    background-color: var(--md-sys-color-primary) !important;
+    color: var(--md-sys-color-on-primary) !important;
+    border-radius: 8px !important;
+    padding: 3px 8px !important;
+    margin: 2px !important;
+}
+
+[data-testid="stSidebar"] [data-testid="stMultiSelect"] span[data-tag] > span,
+.stSidebar [data-testid="stMultiSelect"] span[data-tag] > span {
+    display: inline-block !important;
+    width: auto !important;
+    color: var(--md-sys-color-on-primary) !important;
+    font-size: 0.88rem !important;
+    font-weight: 600 !important;
+    white-space: nowrap !important;
 }
 
 /* Sidebar -> M3 Navigation Drawer: Khóa cứng độ rộng bất biến 100% đồng nhất giữa tất cả các trang */

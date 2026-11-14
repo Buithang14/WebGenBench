@@ -35,7 +35,6 @@ apply_m3_theme()
 
 m3_header(
     title="Khu Vực Điều Khiển Chạy Thí Nghiệm",
-    subtitle="Ra lệnh cho robot tự động mở IDE, nạp prompt, kiểm soát tiến trình và chấm điểm định lượng 6 tiêu chí",
     icon_name="rocket"
 )
 

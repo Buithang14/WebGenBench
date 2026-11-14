@@ -29,7 +29,6 @@ apply_m3_theme()
 
 m3_header(
     title="Quản Lý Bài Tập & Nạp Prompt",
-    subtitle="Soạn thảo prompt chuẩn, chỉnh sửa yêu cầu UI/Kỹ thuật và cập nhật ảnh thiết kế tham chiếu (Design Ground Truth)",
     icon_name="task"
 )
 

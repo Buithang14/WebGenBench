@@ -30,7 +30,6 @@ apply_m3_theme()
 
 m3_header(
     title="Cấu Hình Trọng Số & Hệ Thống (Settings & Scoring Config)",
-    subtitle="Tinh chỉnh luật chấm điểm 6 tiêu chí định lượng, cấu hình đường dẫn thực thi của 3 IDE, Model cố định và thời gian chờ",
     icon_name="tune"
 )
 

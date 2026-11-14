@@ -26,7 +26,6 @@ apply_m3_theme()
 
 m3_header(
     title="Phân Tích & So Sánh Nghiên Cứu (Analytics & Comparison)",
-    subtitle="Màn hình 4 theo Kế hoạch: So sánh 3 công cụ (Bar chart & Boxplot độ ổn định), so sánh Điều kiện A vs B và biểu đồ 6 tiêu chí",
     icon_name="analytics"
 )
 
@@ -38,21 +37,30 @@ if not runs:
     m3_banner("Chưa có dữ liệu lượt chạy nào. Vui lòng chạy ít nhất 1 bài benchmark!", banner_type="warning", icon_name="warning")
     st.stop()
 
-# 1. Bộ lọc nâng cao
-st.sidebar.markdown(f"""
-<div style="display:flex; align-items:center; gap:8px; margin-bottom:8px;">
-    {get_svg("tune", size=18, color="#0B57D0")}
-    <span style="font-weight:700; font-size:1rem; color:#1F1F1F;">Bộ Lọc Phân Tích</span>
-</div>
-""", unsafe_allow_html=True)
-
+# 1. Bộ lọc nâng cao (Collapsible Expander)
 all_tasks = sorted(list(set(r["task_id"] for r in runs)))
 all_ides = sorted(list(set(r["ide_name"] for r in runs)))
 all_conditions = sorted(list(set(r["prompt_condition"] for r in runs)))
 
-selected_tasks = st.sidebar.multiselect("Lọc theo Bài tập (Task):", options=all_tasks, default=all_tasks)
-selected_ides = st.sidebar.multiselect("Lọc theo IDE:", options=all_ides, default=all_ides)
-selected_conditions = st.sidebar.multiselect("Lọc theo Điều kiện:", options=all_conditions, default=all_conditions)
+with st.sidebar.expander("Bộ Lọc Phân Tích", expanded=False):
+    selected_tasks = st.multiselect(
+        "Lọc theo Bài tập (Task):",
+        options=all_tasks,
+        default=all_tasks,
+        key="analytics_filter_tasks"
+    )
+    selected_ides = st.multiselect(
+        "Lọc theo IDE:",
+        options=all_ides,
+        default=all_ides,
+        key="analytics_filter_ides"
+    )
+    selected_conditions = st.multiselect(
+        "Lọc theo Điều kiện:",
+        options=all_conditions,
+        default=all_conditions,
+        key="analytics_filter_conditions"
+    )
 
 # Áp dụng bộ lọc
 filtered_runs = [
@@ -61,6 +69,9 @@ filtered_runs = [
     and r["ide_name"] in selected_ides
     and r["prompt_condition"] in selected_conditions
 ]
+
+if len(selected_tasks) < len(all_tasks) or len(selected_ides) < len(all_ides) or len(selected_conditions) < len(all_conditions):
+    st.sidebar.caption(f"🔍 Đang lọc: {len(filtered_runs)}/{len(runs)} lượt chạy")
 
 if not filtered_runs:
     m3_banner("Không có kết quả nào thỏa mãn bộ lọc hiện tại!", banner_type="info", icon_name="info")
@@ -329,17 +340,8 @@ st.divider()
 
 st.markdown(f"""
 <div style="display:flex; align-items:center; gap:8px; margin-bottom:8px;">
-    {get_svg("download", size=20, color="#0B57D0")}
-    <span style="font-weight:700; font-size:1.1rem; color:#1F1F1F;">Bảng Dữ Liệu Tổng Hợp & Xuất Khóa Luận</span>
+    {get_svg("table", size=20, color="#0B57D0")}
+    <span style="font-weight:700; font-size:1.1rem; color:#1F1F1F;">Bảng Dữ Liệu Chi Tiết Các Lượt Chạy</span>
 </div>
 """, unsafe_allow_html=True)
 st.dataframe(df_detail, use_container_width=True, hide_index=True)
-csv_data = df_detail.to_csv(index=False).encode('utf-8-sig')
-st.download_button(
-    label="Xuất file CSV đưa vào khóa luận",
-    data=csv_data,
-    file_name="webgenbench_analytics_matrix.csv",
-    mime="text/csv",
-    type="primary",
-    icon=":material/download:"
-)

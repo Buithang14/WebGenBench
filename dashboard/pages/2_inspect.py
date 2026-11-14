@@ -29,7 +29,6 @@ apply_m3_theme()
 
 m3_header(
     title="Khu Vực Soi Chi Tiết Kết Quả (Run Inspector)",
-    subtitle="Kiểm tra sản phẩm sau mỗi lần chạy: So sánh ảnh đối chiếu 3 kích thước, bảng điểm 6 tiêu chí, danh sách lỗi chi tiết và duyệt mã nguồn",
     icon_name="search"
 )
 

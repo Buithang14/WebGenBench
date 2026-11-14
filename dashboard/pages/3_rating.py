@@ -28,7 +28,6 @@ apply_m3_theme()
 
 m3_header(
     title="Phòng Chấm Điểm Ẩn Danh (Blind Qualitative Rating)",
-    subtitle="Màn hình 3 theo Kế hoạch: Dành cho chuyên gia chấm điểm độc lập không bị thiên kiến thương hiệu IDE & Phân tích hệ số đồng thuận (Inter-Rater Reliability)",
     icon_name="gavel"
 )
 
