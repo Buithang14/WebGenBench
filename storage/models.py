@@ -38,6 +38,28 @@ class Experiment(Base):
         return f"<Experiment(id={self.id}, name='{self.name}', status='{self.status}')>"
 
 
+class Task(Base):
+    """Bảng lưu thông tin các bài tập Benchmark (Task Registry)."""
+    __tablename__ = "tasks"
+
+    task_id = Column(String(50), primary_key=True)  # ví dụ: 'T01', 'T02'
+    name = Column(String(100), nullable=False)
+    title_vi = Column(String(255), nullable=True)
+    prompt_file = Column(String(255), nullable=True)
+    prompt_text = Column(Text, nullable=False)
+    reference_image = Column(String(255), nullable=True)
+    expected_files_json = Column(Text, nullable=True)  # JSON list
+    ui_requirements_json = Column(Text, nullable=True)  # JSON list
+    technical_requirements_json = Column(Text, nullable=True)  # JSON list
+    created_at = Column(DateTime, default=datetime.now)
+
+    # Quan hệ 1 - N với Runs
+    runs = relationship("Run", back_populates="task")
+
+    def __repr__(self) -> str:
+        return f"<Task(id='{self.task_id}', name='{self.name}')>"
+
+
 class Run(Base):
     """Bảng lưu trữ thông tin thực thi của một lần chạy (Run)."""
     __tablename__ = "runs"
@@ -48,7 +70,7 @@ class Run(Base):
     agent_name = Column(String(50), nullable=True)
     model_name = Column(String(50), nullable=True)
     ide_version = Column(String(50), nullable=True)
-    task_id = Column(String(50), nullable=False)
+    task_id = Column(String(50), ForeignKey("tasks.task_id"), nullable=False)
     prompt_condition = Column(String(30), nullable=False)  # 'text_only' / 'text_image'
     repetition_num = Column(Integer, default=1)
     prompt_used = Column(Text, nullable=False)
@@ -59,6 +81,7 @@ class Run(Base):
     blind_code = Column(String(50), nullable=True, index=True)  # ví dụ: 'Sample_001'
 
     # Quan hệ
+    task = relationship("Task", back_populates="runs")
     experiment = relationship("Experiment", back_populates="runs")
     project = relationship("GeneratedProject", back_populates="run", uselist=False, cascade="all, delete-orphan")
     screenshots = relationship("Screenshot", back_populates="run", cascade="all, delete-orphan")

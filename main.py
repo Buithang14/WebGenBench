@@ -154,6 +154,27 @@ def show_task(task_id: str):
     logger.success(f"Xác thực bài tập '{task_id}' thành công! Dữ liệu đầu vào đã sẵn sàng.")
 
 
+@cli.command(name="list-tasks")
+def list_tasks_cli():
+    """Liệt kê toàn bộ các bài tập Benchmark đã đăng ký trong CSDL SQLite."""
+    from storage.db_manager import DBManager
+
+    db_manager = DBManager()
+    tasks = db_manager.list_all_tasks()
+    if not tasks:
+        db_manager.sync_all_tasks_from_disk()
+        tasks = db_manager.list_all_tasks()
+
+    click.echo("\n" + "=" * 85)
+    click.echo("           DANH SÁCH BÀI TẬP BENCHMARK TRONG CSDL SQLITE (TASKS REGISTRY)")
+    click.echo("=" * 85)
+    click.echo(f"{'Mã Task':<9} | {'Tên bài tập':<22} | {'Tiêu đề tiếng Việt':<32} | {'Số Run'}")
+    click.echo("-" * 85)
+    for t in tasks:
+        click.echo(f"{t['task_id']:<9} | {t['name']:<22} | {t['title_vi'] or '':<32} | {t['runs_count']}")
+    click.echo("=" * 85 + "\n")
+
+
 @cli.command(name="test-ide")
 @click.option("--ide", "-i", type=click.Choice(["cursor", "windsurf", "vscode"], case_sensitive=False), default="cursor", help="Tên IDE cần kiểm tra (cursor, windsurf, vscode)")
 @click.option("--action", "-a", type=click.Choice(["smoke-test", "check-path", "launch", "inspect", "close", "test-prompt"], case_sensitive=False), default="smoke-test", help="Hành động kiểm tra")
@@ -377,12 +398,14 @@ def evaluate_cli(run_id: str, task: Optional[str]):
 
 @cli.command(name="init-db")
 def init_db_cli():
-    """Khởi tạo CSDL SQLite và tự động đồng bộ các Run sẵn có trong outputs/ vào CSDL."""
+    """Khởi tạo CSDL SQLite, đồng bộ toàn bộ Tasks và các Run sẵn có vào CSDL."""
     from storage.db_manager import DBManager
 
     logger.info(">>> Bắt đầu khởi tạo cơ sở dữ liệu SQLite cho WebGenBench...")
     db_manager = DBManager()
-    db_manager.init_db()
+    db_manager.init_db(auto_sync_tasks=True)
+
+    tasks_count = len(db_manager.list_all_tasks())
 
     outputs_dir = BASE_DIR / "outputs"
     synced_count = 0
@@ -400,6 +423,7 @@ def init_db_cli():
     click.echo("        KHỞI TẠO CƠ SỞ DỮ LIỆU SQLITE THÀNH CÔNG")
     click.echo("=" * 70)
     click.echo(f" - Đường dẫn CSDL     : {db_manager.db_path}")
+    click.echo(f" - Số Task đã đồng bộ : {tasks_count}")
     click.echo(f" - Số Run đã đồng bộ  : {synced_count}")
     click.echo("=" * 70 + "\n")
     logger.success("Hoàn tất khởi tạo CSDL và đồng bộ dữ liệu vào SQLite!")

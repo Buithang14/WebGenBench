@@ -27,6 +27,7 @@ def test_db_initialization(tmp_path: Path):
 
     expected_tables = {
         "experiments",
+        "tasks",
         "runs",
         "generated_projects",
         "screenshots",
@@ -167,4 +168,39 @@ def test_list_all_runs(tmp_path: Path):
     assert run_entry["ide_name"] == "cursor"
     assert run_entry["task_id"] == "T01"
     assert run_entry["weighted_total_score"] is not None
+
+
+def test_task_sync_and_crud(tmp_path: Path):
+    """Kiểm tra đồng bộ bài tập từ thư mục tasks/ vào SQLite và lưu bài tập mới."""
+    test_db = tmp_path / "test_tasks.db"
+    db_mgr = DBManager(db_path=test_db)
+    db_mgr.init_db(auto_sync_tasks=True)
+
+    # 1. Kiểm tra auto sync tasks
+    tasks = db_mgr.list_all_tasks()
+    assert len(tasks) >= 1
+    task_ids = [t["task_id"] for t in tasks]
+    assert "T01" in task_ids
+
+    # 2. Kiểm tra get_task
+    t01 = db_mgr.get_task("T01")
+    assert t01 is not None
+    assert t01["name"] == "Login Form"
+    assert len(t01["ui_requirements"]) > 0
+    assert len(t01["technical_requirements"]) > 0
+
+    # 3. Kiểm tra save_task
+    save_res = db_mgr.save_task(
+        task_id="T99",
+        name="Test Task",
+        title_vi="Bài tập kiểm thử",
+        prompt_text="Tạo giao diện kiểm thử...",
+        ui_requirements=["UI 1", "UI 2"],
+        technical_requirements=["Tech 1"],
+        sync_to_disk=False,
+    )
+    assert save_res["status"] == "SAVED"
+    t99 = db_mgr.get_task("T99")
+    assert t99 is not None
+    assert t99["title_vi"] == "Bài tập kiểm thử"
 
