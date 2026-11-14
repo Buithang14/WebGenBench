@@ -108,28 +108,28 @@ with tab_rating:
         
         rater_id = st.text_input("Tên / Mã chuyên gia đánh giá (Rater ID):", placeholder="Ví dụ: Rater_1, Rater_2, ChuyenGia_A...")
         
-        st.markdown("##### 1. Độ chính xác Bố cục (Layout Precision)")
+        st.markdown("##### 1. Bố cục (Layout)")
         st.caption("Khung card căn giữa, khoảng cách padding, cấu trúc tỷ lệ chuẩn so với yêu cầu đề bài.")
-        score_layout = st.slider("Điểm Bố cục (1: Rất kém -> 5: Hoàn hảo):", 1, 5, 4, key="sc_layout")
+        score_layout = st.radio("Điểm Bố cục (1: Kém → 5: Hoàn hảo):", [1, 2, 3, 4, 5], index=3, horizontal=True, key="sc_layout")
 
-        st.markdown("##### 2. Tính Thẩm mỹ Thị giác (Visual Aesthetics)")
+        st.markdown("##### 2. Thẩm mỹ (Aesthetics)")
         st.caption("Độ hài hòa màu sắc, độ tương phản chữ, font chữ, bóng đổ card và hiệu ứng giao diện.")
-        score_aesthetics = st.slider("Điểm Thẩm mỹ (1: Thô sơ -> 5: Đẹp xuất sắc):", 1, 5, 4, key="sc_aesthetics")
+        score_aesthetics = st.radio("Điểm Thẩm mỹ (1: Thô sơ → 5: Rất đẹp):", [1, 2, 3, 4, 5], index=3, horizontal=True, key="sc_aesthetics")
 
-        st.markdown("##### 3. Độ Dễ đọc & Trải nghiệm (Readability & UX)")
+        st.markdown("##### 3. Dễ đọc (Readability)")
         st.caption("Font chữ dễ đọc, phân cấp thông tin rõ ràng, nhãn label và ô nhập trực quan.")
-        score_readability = st.slider("Điểm Trải nghiệm (1: Khó dùng -> 5: Rất dễ chịu):", 1, 5, 4, key="sc_readability")
+        score_readability = st.radio("Điểm Dễ đọc (1: Khó đọc → 5: Rất trực quan):", [1, 2, 3, 4, 5], index=3, horizontal=True, key="sc_readability")
 
-        st.markdown("##### 4. Tính Hoàn thiện Tính năng (Completeness)")
+        st.markdown("##### 4. Đầy đủ (Completeness)")
         st.caption("Đầy đủ các trường dữ liệu, icon ẩn/hiện, remember me, forgot password, nút submit.")
-        score_completeness = st.slider("Điểm Hoàn thiện (1: Thiếu nhiều -> 5: Đầy đủ 100%):", 1, 5, 5, key="sc_completeness")
+        score_completeness = st.radio("Điểm Hoàn thiện (1: Thiếu nhiều → 5: Đầy đủ 100%):", [1, 2, 3, 4, 5], index=4, horizontal=True, key="sc_completeness")
 
         comment = st.text_area("Ghi chú / Nhận xét chuyên môn (Tùy chọn):", placeholder="Ghi chú về chi tiết giao diện, lỗi hiển thị hoặc điểm sáng...")
 
         avg_score = round((score_layout + score_aesthetics + score_readability + score_completeness) / 4.0, 2)
         st.metric("Điểm Trung Bình Đánh Giá", f"{avg_score} / 5.0")
 
-        if st.button("GỬI ĐÁNH GIÁ ĐỊNH TÍNH", type="primary", icon=":material/send:", use_container_width=True):
+        if st.button("Lưu Điểm Chấm", type="primary", icon=":material/save:", use_container_width=True):
             if not rater_id.strip():
                 st.error("Vui lòng nhập Tên/Mã chuyên gia đánh giá!")
                 st.stop()

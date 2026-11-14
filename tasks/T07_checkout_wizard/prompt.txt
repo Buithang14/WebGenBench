@@ -1,0 +1,9 @@
+Hãy xây dựng giao diện web cho 'Quy trình thanh toán đa bước' (Multi-step Checkout Wizard).
+Yêu cầu:
+1. Thanh chỉ báo tiến trình (Stepper Indicator) gồm 3 bước: 1. Địa chỉ nhận hàng -> 2. Thanh toán -> 3. Hoàn tất.
+2. Bước 1: Nhập thông tin người nhận (Họ tên, SĐT, Địa chỉ, Ghi chú giao hàng).
+3. Bước 2: Chọn phương thức thanh toán (Thẻ tín dụng / Ví điện tử / COD) với form nhập thẻ.
+4. Cột bên phải hiển thị Bảng tóm tắt đơn hàng (Sản phẩm, Phí vận chuyển, Thuế, Tổng tiền).
+5. Nút 'Quay lại' và 'Tiếp tục' có kiểm tra xác thực trước khi bước tiếp.
+6. Responsive trên Mobile (375px), Tablet (768px), Desktop (1440px).
+7. Đúng 3 file index.html, style.css, script.js tại thư mục gốc.

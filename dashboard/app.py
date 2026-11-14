@@ -265,31 +265,31 @@ def home_page():
 
     st.divider()
     m3_elevated_card(f"""
-        <div style="font-weight:700; color:#0B57D0; margin-bottom:10px; font-size:1.1rem; display:flex; align-items:center; gap:8px;">
-            {get_svg("task", size=22, color="#0B57D0")}
-            <span>Cấu Trúc Các Màn Hình Theo Kế Hoạch Nghiên Cứu (Plan.docx):</span>
+        <div style="font-weight:700; color:#0B57D0; margin-bottom:10px; font-size:1.15rem; display:flex; align-items:center; gap:8px;">
+            {get_svg("task", size=24, color="#0B57D0")}
+            <span>5 Khu Vực Chức Năng Cốt Lõi (Theo Giao diện.docx & Plan.docx):</span>
         </div>
         <div style="font-size:0.92rem; color:#444746; line-height:1.9;">
-            • <b>Điều Khiển Thí Nghiệm (Màn hình 1):</b> Chạy đơn lẻ hoặc quản lý tiến độ ma trận 144 lần chạy tự động (Start / Resume / Retry).<br>
-            • <b>Chi Tiết Lần Chạy (Màn hình 2):</b> Đối chiếu 3 ảnh kết xuất với ảnh thiết kế gốc (Ground Truth), thanh tra DOM layout và xem code.<br>
-            • <b>Chấm Điểm Ẩn Danh (Màn hình 3):</b> Dành cho chuyên gia chấm ẩn danh 1-5 sao & phân tích hệ số đồng thuận Inter-Rater Reliability.<br>
-            • <b>Phân Tích & So Sánh (Màn hình 4):</b> Biểu đồ cột, Boxplot đo độ ổn định qua các lần lặp lại và so sánh Điều kiện A vs B.<br>
-            • <b>Điều Chỉnh Trọng Số:</b> Mô phỏng thay đổi tỷ trọng 6 tiêu chí và tự động cập nhật lại toàn bộ điểm CSDL.<br>
-            • <b>Xuất Dữ Liệu (Màn hình 5):</b> Xuất file CSV phẳng cho SPSS/R/Excel, trích xuất JSON và sinh báo cáo tóm tắt Markdown.
+            • <b>1. Quản lý Bài tập & Nạp Prompt (Task & Prompt Manager):</b> Thao tác trực tiếp với 8 bài tập (T01 → T08), ô soạn thảo Prompt lớn, danh sách yêu cầu UI & kỹ thuật, upload ảnh thiết kế mẫu kèm xem trước.<br>
+            • <b>2. Điều khiển Chạy Thí nghiệm (Experiment Control Panel):</b> Chế độ 1 chạy đơn lẻ (Cursor/Windsurf/VS Code, Text vs Text+Image, nút Bắt đầu & Chấm điểm lại); Chế độ 2 chạy hàng loạt 144 runs với thanh tiến trình và Live Log.<br>
+            • <b>3. Cấu hình Trọng số & Hệ thống (Settings & Scoring Config):</b> 6 thanh kéo sliders tinh chỉnh tỷ lệ % tiêu chí, nút Recalculate cập nhật toàn bộ CSDL, cấu hình đường dẫn .exe của 3 IDE, Model cố định và Timeout.<br>
+            • <b>4. Soi Chi tiết Kết quả (Run Inspector):</b> Bộ lọc lượt chạy, so sánh ảnh trực quan đặt cạnh nhau (Ảnh mẫu gốc vs 3 cỡ Mobile, Tablet, Desktop), bảng điểm 6 tiêu chí & danh sách lỗi bắt được, trình xem code index.html, style.css, script.js.<br>
+            • <b>5. Chấm điểm Định tính Ẩn danh & Xuất Báo cáo (Blind Review & Analytics):</b> Màn hình người chấm ẩn danh Sample #037 với 4 tiêu chí 1-5 sao + nhận xét; Biểu đồ so sánh 3 IDE, so sánh Text vs Text+Image, hệ số đồng thuận Fleiss' Kappa và nút Xuất CSV đưa vào khóa luận.
         </div>
     """)
 
 
-# Hệ thống Navigation Streamlit chuẩn xác theo Plan.docx với Google Material Symbols (SVG) & URL tiếng Anh tinh gọn
+# Hệ thống Navigation Streamlit chuẩn xác theo Giao diện.docx & Plan.docx với Google Material Symbols (SVG) & URL tiếng Anh tinh gọn
 pg = st.navigation(
     pages=[
         st.Page(home_page, title="Tổng Quan", icon=":material/dashboard:", default=True),
+        st.Page("pages/0_tasks.py", title="Quản Lý Bài Tập", icon=":material/task:", url_path="tasks"),
         st.Page("pages/1_experiments.py", title="Điều Khiển Thí Nghiệm", icon=":material/rocket_launch:", url_path="experiments"),
         st.Page("pages/2_inspect.py", title="Chi Tiết Lần Chạy", icon=":material/manage_search:", url_path="inspect"),
         st.Page("pages/3_rating.py", title="Chấm Điểm Ẩn Danh", icon=":material/gavel:", url_path="rating"),
-        st.Page("pages/4_analytics.py", title="Phân Tích & So Sánh", icon=":material/analytics:", url_path="analytics"),
-        st.Page("pages/5_weights.py", title="Điều Chỉnh Trọng Số", icon=":material/tune:", url_path="weights"),
-        st.Page("pages/6_export.py", title="Xuất Dữ Liệu", icon=":material/download:", url_path="export"),
+        st.Page("pages/4_analytics.py", title="Phân Tích & Biểu Đồ", icon=":material/analytics:", url_path="analytics"),
+        st.Page("pages/5_weights.py", title="Cấu Hình & Trọng Số", icon=":material/tune:", url_path="weights"),
+        st.Page("pages/6_export.py", title="Xuất Báo Cáo", icon=":material/download:", url_path="export"),
     ]
 )
 

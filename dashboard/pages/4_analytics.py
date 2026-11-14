@@ -13,6 +13,7 @@ from storage.db_manager import DBManager
 from dashboard.theme import (
     apply_m3_theme,
     m3_header,
+    m3_card,
     m3_banner,
     m3_chip,
     m3_plotly_layout,
@@ -93,11 +94,12 @@ for r in filtered_runs:
 
 df_detail = pd.DataFrame(detailed_records)
 
-tab_overview, tab_boxplot, tab_cond, tab_metrics = st.tabs([
-    "Xếp Hạng & Biểu Đồ Cột (Bar Chart)",
-    "Độ Ổn Định & Phân Tán (Boxplot)",
-    "So Sánh Điều Kiện A (Text) vs B (Text+Image)",
-    "Chi Tiết 6 Nhóm Tiêu Chí"
+tab_overview, tab_boxplot, tab_cond, tab_metrics, tab_agreement = st.tabs([
+    "1. So Sánh 3 IDE (Bar Chart)",
+    "2. Độ Ổn Định (Boxplot)",
+    "3. So Sánh Chữ vs Chữ+Ảnh",
+    "4. 6 Nhóm Tiêu Chí",
+    "5. Độ Đồng Thuận Giữa Những Người Chấm"
 ])
 
 # ==================== TAB 1: XẾP HẠNG & BAR CHART ====================
@@ -272,21 +274,72 @@ with tab_metrics:
     fig_metrics.update_layout(yaxis=dict(range=[0, 110], gridcolor="#E1E3E1"))
     st.plotly_chart(fig_metrics, use_container_width=True)
 
+# ==================== TAB 5: ĐỘ ĐỒNG THUẬN GIỮA NHỮNG NGƯỜI CHẤM ====================
+with tab_agreement:
+    st.markdown(f"""
+    <div style="display:flex; align-items:center; gap:8px; margin-bottom:12px;">
+        {get_svg("gavel", size=22, color="#0B57D0")}
+        <span style="font-weight:700; font-size:1.15rem; color:#1F1F1F;">5. Phân Tích Độ Đồng Thuận Giữa Những Người Chấm (Inter-Rater Agreement)</span>
+    </div>
+    """, unsafe_allow_html=True)
+    st.caption("Kiểm định độ tin cậy khoa học của phương pháp chấm điểm mù: Tỷ lệ đồng thuận tuyệt đối (Exact %), Trong phạm vi 1 điểm (Within-1) và hệ số Fleiss' Kappa.")
+
+    from qualitative.agreement import compute_inter_rater_agreement
+    iaa_stats = compute_inter_rater_agreement(db)
+
+    c_iaa1, c_iaa2, c_iaa3 = st.columns(3)
+    with c_iaa1:
+        m3_card(
+            value=f"{iaa_stats.get('exact_agreement_percent', 0.0):.1f}%",
+            label="Đồng thuận tuyệt đối",
+            secondary="Exact Agreement",
+            badge="Exact",
+            badge_type="primary",
+            icon_name="check_circle"
+        )
+    with c_iaa2:
+        m3_card(
+            value=f"{iaa_stats.get('within_1_agreement_percent', 0.0):.1f}%",
+            label="Đồng thuận sai lệch ≤ 1đ",
+            secondary="Within-1 Point Agreement",
+            badge="Within-1",
+            badge_type="success",
+            icon_name="task"
+        )
+    with c_iaa3:
+        kappa_val = iaa_stats.get("fleiss_kappa_approx", 0.0)
+        m3_card(
+            value=f"{kappa_val:.3f}",
+            label="Hệ số Fleiss' Kappa",
+            secondary=iaa_stats.get("kappa_interpretation", "N/A"),
+            badge="Kappa",
+            badge_type="secondary",
+            icon_name="analytics"
+        )
+
+    st.markdown("<br>", unsafe_allow_html=True)
+    m3_banner(
+        f"<b>Tổng số lượt chấm ghi nhận:</b> {iaa_stats.get('total_ratings', 0)} lượt trên {iaa_stats.get('samples_rated_count', 0)} mẫu thử nghiệm bởi {iaa_stats.get('distinct_raters_count', 0)} chuyên gia độc lập. "
+        f"Mức độ đồng thuận: <b>{iaa_stats.get('kappa_interpretation', 'N/A')}</b>.",
+        banner_type="info",
+        icon_name="info"
+    )
+
 st.divider()
 
 st.markdown(f"""
 <div style="display:flex; align-items:center; gap:8px; margin-bottom:8px;">
     {get_svg("download", size=20, color="#0B57D0")}
-    <span style="font-weight:700; font-size:1.1rem; color:#1F1F1F;">Bảng Dữ Liệu Tổng Hợp</span>
+    <span style="font-weight:700; font-size:1.1rem; color:#1F1F1F;">Bảng Dữ Liệu Tổng Hợp & Xuất Khóa Luận</span>
 </div>
 """, unsafe_allow_html=True)
 st.dataframe(df_detail, use_container_width=True, hide_index=True)
 csv_data = df_detail.to_csv(index=False).encode('utf-8-sig')
 st.download_button(
-    label="Tải xuống dữ liệu phân tích (.CSV)",
+    label="📥 Xuất file CSV đưa vào khóa luận",
     data=csv_data,
     file_name="webgenbench_analytics_matrix.csv",
     mime="text/csv",
-    type="secondary",
+    type="primary",
     icon=":material/download:"
 )

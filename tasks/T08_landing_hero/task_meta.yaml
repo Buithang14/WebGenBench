@@ -1,0 +1,20 @@
+expected_files:
+- index.html
+- style.css
+- script.js
+name: Landing Page Hero Section
+prompt_file: tasks/T08_landing_hero/prompt.txt
+reference_image: designs/T08_reference.png
+task_id: T08
+technical_requirements:
+- Thiết kế đồ họa hiện đại với gradient hoặc hiệu ứng thẻ kính mờ (glassmorphism).
+- Mobile menu toggle (hamburger button) cho màn hình nhỏ.
+- Responsive chuẩn mực từ 375px đến 1440px.
+- Đúng 3 file index.html, style.css, script.js tại thư mục gốc.
+title_vi: Trang đích giới thiệu sản phẩm công nghệ
+ui_requirements:
+- Thanh Navigation bar trên cùng có Logo, Menu điều hướng, và nút Đăng ký dùng thử.
+- Phần Hero chính với Tiêu đề lớn (Headline ấn tượng), đoạn giới thiệu ngắn và 2 nút
+  Call-to-Action (Bắt đầu miễn phí / Xem video demo).
+- Khung minh họa trực quan (App preview / Product Mockup card).
+- Dải logo các thương hiệu đối tác tin cậy (Social proof badges).

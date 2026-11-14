@@ -1,0 +1,19 @@
+expected_files:
+- index.html
+- style.css
+- script.js
+name: Multi-step Checkout Wizard
+prompt_file: tasks/T07_checkout_wizard/prompt.txt
+reference_image: designs/T07_reference.png
+task_id: T07
+technical_requirements:
+- JavaScript quản lý trạng thái từng bước (Step State Management).
+- Kiểm tra hợp lệ trước khi cho phép chuyển sang bước tiếp theo.
+- Đúng 3 file index.html, style.css, script.js tại thư mục gốc.
+title_vi: Quy trình đặt hàng và thanh toán đa bước
+ui_requirements:
+- 'Thanh tiến trình (Step Progress Bar): Bước 1 - Giao hàng, Bước 2 - Phương thức
+  thanh toán, Bước 3 - Xác nhận đơn.'
+- Nội dung từng bước chuyển đổi mượt mà không tải lại trang.
+- Tóm tắt đơn hàng (Order Summary) hiển thị cố định ở cột bên phải.
+- Nút Quay lại và Tiếp tục / Đặt hàng tương ứng với từng bước.

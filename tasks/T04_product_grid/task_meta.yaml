@@ -1,0 +1,21 @@
+expected_files:
+- index.html
+- style.css
+- script.js
+name: E-commerce Product Grid
+prompt_file: tasks/T04_product_grid/prompt.txt
+reference_image: designs/T04_reference.png
+task_id: T04
+technical_requirements:
+- Sử dụng CSS Grid với auto-fit / minmax để co giãn tự nhiên.
+- JavaScript xử lý tăng số lượng giỏ hàng khi bấm Thêm vào giỏ.
+- Chuẩn HTML5 ngữ nghĩa và a11y alt text cho ảnh.
+- Tạo đúng 3 file index.html, style.css, script.js tại thư mục gốc.
+title_vi: Lưới danh sách sản phẩm thương mại điện tử
+ui_requirements:
+- Lưới hiển thị danh sách sản phẩm (3 đến 4 cột trên Desktop, 2 cột trên Tablet, 1
+  cột trên Mobile).
+- 'Mỗi thẻ sản phẩm gồm: Ảnh sản phẩm, Tên, Đánh giá sao, Giá bán và Giá khuyến mãi,
+  Nút Thêm vào giỏ hàng.'
+- Thanh lọc theo danh mục sản phẩm và ô sắp xếp theo giá.
+- Huy hiệu giảm giá (Sale badge) nổi bật trên góc ảnh.

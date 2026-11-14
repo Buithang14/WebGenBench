@@ -1,0 +1,21 @@
+expected_files:
+- index.html
+- style.css
+- script.js
+name: Pricing Table
+prompt_file: tasks/T05_pricing_table/prompt.txt
+reference_image: designs/T05_reference.png
+task_id: T05
+technical_requirements:
+- CSS Flexbox/Grid căn đều 3 cột, gói Pro có viền sáng hoặc huy hiệu Phổ biến nhất.
+- JavaScript chuyển đổi số tiền khi gạt toggle tháng/năm.
+- Semantic markup và responsive tốt.
+- Đúng 3 file index.html, style.css, script.js tại thư mục gốc.
+title_vi: Bảng giá dịch vụ và so sánh các gói cước
+ui_requirements:
+- '3 gói dịch vụ: Gói Cơ Bản (Starter), Gói Chuyên Nghiệp (Pro - Nổi bật nhất), Gói
+  Doanh Nghiệp (Enterprise).'
+- Công tắc chuyển đổi (Toggle) giữa thanh toán Theo tháng (Monthly) và Theo năm (Annually)
+  kèm giảm giá 20%.
+- Danh sách tính năng đi kèm có dấu tích xanh hoặc gạch chéo.
+- Nút Đăng ký gói (Call to Action) nổi bật cho từng gói.

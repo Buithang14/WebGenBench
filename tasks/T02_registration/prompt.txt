@@ -1,0 +1,10 @@
+Hãy xây dựng giao diện web cho 'Biểu mẫu đăng ký thành viên' (Registration Form) hiện đại và chuyên nghiệp.
+Yêu cầu cụ thể:
+1. Giao diện dạng thẻ (Card) căn giữa màn hình cả chiều ngang và dọc với nền sáng trang nhã.
+2. Bao gồm các trường: Họ và tên (Full Name), Email, Mật khẩu (Password), Xác nhận mật khẩu (Confirm Password), Số điện thoại (Phone).
+3. Có chức năng ẩn/hiện mật khẩu bằng nút bấm hoặc icon mắt.
+4. Checkbox đồng ý với Điều khoản dịch vụ và Chính sách quyền riêng tư.
+5. Nút 'Đăng Ký Ngay' (Register) phong cách hiện đại, hiệu ứng hover rõ ràng.
+6. Xác thực form bằng JavaScript: báo lỗi khi bỏ trống, email sai định dạng, mật khẩu < 8 ký tự hoặc xác nhận mật khẩu không khớp.
+7. Đảm bảo Responsive chuẩn cho điện thoại (375px), tablet (768px) và desktop (1440px).
+8. Tạo đúng 3 file index.html, style.css, script.js ngay tại thư mục gốc của project, không dùng thư viện ngoài.

@@ -1,0 +1,20 @@
+expected_files:
+- index.html
+- style.css
+- script.js
+name: User Profile & Settings
+prompt_file: tasks/T06_user_profile/prompt.txt
+reference_image: designs/T06_reference.png
+task_id: T06
+technical_requirements:
+- Tabs chuyển đổi hoạt động mượt mà bằng JavaScript thuần.
+- Form inputs có floating label hoặc layout chuẩn thẩm mỹ.
+- Thông báo lưu thành công (toast notification) khi bấm Lưu.
+- Đúng 3 file index.html, style.css, script.js tại thư mục gốc.
+title_vi: Hồ sơ người dùng và cài đặt tài khoản
+ui_requirements:
+- 'Bố cục dạng Tab chuyển đổi: Thông tin cá nhân, Mật khẩu & Bảo mật, Cài đặt thông
+  báo.'
+- Khu vực ảnh đại diện (Avatar) có nút thay đổi ảnh.
+- 'Form chỉnh sửa thông tin: Họ tên, Tên hiển thị, Email, Tiểu sử cá nhân, Múi giờ.'
+- Các nút Lưu thay đổi và Hủy bỏ.

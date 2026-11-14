@@ -1,0 +1,10 @@
+Hãy xây dựng giao diện web cho 'Bảng giá dịch vụ phần mềm SaaS' (Pricing Table).
+Yêu cầu:
+1. Tiêu đề và phụ đề giới thiệu các gói giá minh bạch.
+2. Công tắc gạt (Toggle Switch) chuyển đổi giữa 'Thanh toán hàng tháng' và 'Thanh toán hàng năm (Tiết kiệm 20%)'.
+3. 3 thẻ bảng giá: Starter ($19/tháng), Professional ($49/tháng - gói nổi bật với badge 'Most Popular'), Enterprise ($99/tháng).
+4. Mỗi gói liệt kê 5-6 tính năng với dấu kiểm tích hợp.
+5. Nút 'Bắt đầu sử dụng' phù hợp với từng gói.
+6. Thay đổi giá tự động khi gạt switch hàng tháng/hàng năm.
+7. Responsive 375px, 768px, 1440px.
+8. Đúng 3 file index.html, style.css, script.js tại thư mục gốc.

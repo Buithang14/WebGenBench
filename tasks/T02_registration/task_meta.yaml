@@ -1,0 +1,23 @@
+expected_files:
+- index.html
+- style.css
+- script.js
+name: Registration Form
+prompt_file: tasks/T02_registration/prompt.txt
+reference_image: designs/T02_reference.png
+task_id: T02
+technical_requirements:
+- Sử dụng HTML5 ngữ nghĩa chuẩn W3C (<form>, <input>, <label>, <button>).
+- 'Kiểm tra tính hợp lệ dữ liệu bằng JavaScript thuần: định dạng email regex, mật
+  khẩu tối thiểu 8 ký tự và khớp xác nhận.'
+- Toàn bộ CSS viết trong style.css, không dùng thư viện ngoài.
+- Toàn bộ tương tác trong script.js.
+title_vi: Biểu mẫu đăng ký thành viên đa trường
+ui_requirements:
+- Form đăng ký căn giữa màn hình với tiêu đề và mô tả ngắn gọn.
+- 'Các trường thông tin: Họ và tên, Email, Mật khẩu, Xác nhận mật khẩu, và Số điện
+  thoại.'
+- Nút toggle ẩn/hiện cho cả 2 ô mật khẩu.
+- Checkbox đồng ý điều khoản dịch vụ và chính sách bảo mật.
+- Nút Đăng ký tài khoản nổi bật với trạng thái loading khi submit.
+- Responsive mượt mà trên Mobile (375px), Tablet (768px) và Desktop (1440px).

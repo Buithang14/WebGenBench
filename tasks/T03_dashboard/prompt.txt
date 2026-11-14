@@ -1,0 +1,8 @@
+Hãy xây dựng giao diện web cho 'Bảng điều khiển số liệu KPI' (Analytics Dashboard) hiện đại.
+Yêu cầu:
+1. Bố cục gồm Thanh điều hướng bên trái (Sidebar) và Khu vực làm việc chính (Main Content).
+2. Header chứa ô tìm kiếm (Search bar) và thông tin tài khoản người dùng.
+3. 4 thẻ chỉ số KPI: Doanh thu ($45,230, +12%), Khách hàng mới (1,240, +5%), Tỷ lệ hoàn thành (89.4%), Đơn hàng đang xử lý (342).
+4. Bảng danh sách giao dịch gần nhất với các cột: Mã đơn, Khách hàng, Trạng thái (Thành công/Đang xử lý/Hủy), Số tiền.
+5. Thiết kế sạch đẹp, độ tương phản cao, chuẩn responsive trên Mobile, Tablet và Desktop.
+6. Tạo đúng 3 file index.html, style.css, script.js tại thư mục gốc, không dùng framework ngoài.

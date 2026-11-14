@@ -119,16 +119,17 @@ streamlit run dashboard/app.py
 
 Truy cập ứng dụng tại: **`http://localhost:8501`**
 
-### Sơ đồ điều hướng các trang (URL RESTful tiếng Anh chuẩn):
-| URL Path | Tên Trang | Chức Năng Chính |
-| :--- | :--- | :--- |
-| **`/overview`** | **Tổng Quan** | Bảng điều khiển trung tâm, tổng kết số lượt chạy, điểm trung bình, bảng xếp hạng KPI và biểu đồ Radar 6 tiêu chí. |
-| **`/experiments`** | **Điều Khiển Thí Nghiệm** | Quản lý ma trận 144 lượt chạy (3 IDEs × 8 Tasks × 2 Prompts × 3 Reps), theo dõi tiến độ Real-time, chức năng Resume và chạy từng bài. |
-| **`/inspect`** | **Chi Tiết Lần Chạy** | So sánh ảnh kết xuất thực tế với ảnh thiết kế chuẩn trên 3 kích thước màn hình, thanh tra lỗi DOM, xem mã nguồn HTML/CSS/JS và log lỗi Console. |
-| **`/rating`** | **Chấm Điểm Ẩn Danh** | Giao diện chấm điểm mù dành cho hội đồng chuyên gia, tự động tính toán thống kê và hệ số đồng thuận (Inter-Rater Agreement / Fleiss' Kappa). |
-| **`/analytics`** | **Phân Tích & So Sánh** | Biểu đồ phân bố Boxplot, biểu đồ chấm tương quan giữa thời gian sinh mã và độ phức tạp LOC, so sánh trực quan hiệu quả giữa các model. |
-| **`/weights`** | **Điều Chỉnh Trọng Số** | Kéo thanh trượt điều chỉnh tỷ lệ phần trăm 6 tiêu chí, mô phỏng tính lại điểm số tức thì và cập nhật trực tiếp vào CSDL SQLite. |
-| **`/export`** | **Xuất Dữ Liệu** | Trung tâm xuất dữ liệu nghiên cứu khoa học: tải bảng dữ liệu thô dạng CSV, xuất tệp JSON hoặc bảng Markdown phục vụ viết bài báo khoa học. |
+### Sơ đồ điều hướng các trang (URL RESTful tiếng Anh chuẩn & 5 Khu Vực Chức Năng):
+| URL Path | Tên Trang | Khu Vực Thiết Kế (Giao diện.docx) | Chức Năng Chính |
+| :--- | :--- | :--- | :--- |
+| **`/`** | **Tổng Quan (Overview)** | Trung tâm điều khiển | KPI Cards tổng quan, tiến độ thực nghiệm 144 runs, bảng xếp hạng IDE và biểu đồ Radar 6 tiêu chí M3. |
+| **`/tasks`** | **Quản Lý Bài Tập (Tasks)** | **Khu vực 1: Quản lý Bài tập & Nạp Prompt** | Danh sách 8 bài tập (T01 → T08), nút `[+ Thêm / Tạo bài tập mới]`, trình soạn thảo Prompt kèm `[Lưu Prompt]`, quản lý danh sách yêu cầu UI & Technical, tải ảnh thiết kế mẫu kèm live preview. |
+| **`/experiments`** | **Điều Khiển Thí Nghiệm** | **Khu vực 2: Điều khiển Chạy Thí nghiệm** | Chế độ chạy đơn (Single Run) với `[▶ Bắt đầu Chạy & Chấm điểm]` và `[🔄 Chấm điểm lại]`; Chế độ chiến dịch 144 runs với `[🚀 Khởi chạy Chiến dịch 144 Runs]`, `[⏸ Tạm dừng / Chạy tiếp]`, thanh tiến độ chi tiết và Live Log viewer. |
+| **`/inspect`** | **Chi Tiết Lần Chạy (Inspect)** | **Khu vực 4: Soi Chi tiết Kết quả** | Bộ chọn lọc Run, so sánh trực quan Side-by-side (Ground Truth vs 3 Viewports 1440px, 768px, 375px), thẻ điểm 6 tiêu chí, bảng danh sách lỗi phát hiện chi tiết, Code Viewer (HTML/CSS/JS) với syntax highlighting. |
+| **`/rating`** | **Chấm Điểm Ẩn Danh (Rating)** | **Khu vực 5: Chấm điểm Định tính Ẩn danh** | Chấm điểm mù ẩn danh tên IDE (Sample #001), 4 nhóm tiêu chí (1-5 sao: Bố cục, Thẩm mỹ, Trải nghiệm đọc, Hoàn thiện), khung nhận xét và nút `[Lưu Điểm Chấm]`. |
+| **`/analytics`** | **Phân Tích & So Sánh** | **Khu vực 5: Phân tích & Xuất Báo cáo** | Biểu đồ so sánh 3 IDEs (Radar, Bar chart, Boxplot), so sánh Text-only vs Text+Image, đo độ đồng thuận Fleiss' Kappa, nút `[📥 Xuất file CSV đưa vào khóa luận]`. |
+| **`/weights`** | **Cấu Hình Trọng Số & Hệ Thống** | **Khu vực 3: Cấu hình Trọng số & Hệ thống** | 6 thanh trượt trọng số (HTML 15%, a11y 20%, Responsive 20%, Similarity 25%, Code 10%, Runtime 10%) kèm `[Lưu & Tính lại toàn bộ điểm]`; Quản lý đường dẫn thực thi .exe của 3 IDEs, model name và tham số timeout/cooldown. |
+| **`/export`** | **Trung Tâm Xuất Báo Cáo** | **Khu vực 5: Phân tích & Xuất Báo cáo** | Xuất dữ liệu nghiên cứu khoa học: tải bảng dữ liệu CSV, JSON metadata, báo cáo tóm tắt Markdown và hồ sơ chi tiết từng run. |
 
 ---
 
@@ -203,13 +204,14 @@ WebGenBench/
 │   ├── app.py                  # Trang chủ Streamlit & Bộ định tuyến (/overview)
 │   ├── icons.py                # Kho biểu tượng vector SVG (Google Material Symbols)
 │   ├── theme.py                # Google Material Design 3 Tokens, CSS & Responsive Engine
-│   └── pages/                  # Các trang chức năng (URL RESTful tiếng Anh):
-│       ├── 1_experiments.py    # URL: /experiments (Điều khiển thí nghiệm & Ma trận 144 runs)
-│       ├── 2_inspect.py        # URL: /inspect (Chi tiết lần chạy & Thanh tra DOM)
-│       ├── 3_rating.py         # URL: /rating (Chấm điểm ẩn danh & Độ đồng thuận Kappa)
-│       ├── 4_analytics.py      # URL: /analytics (Phân tích & So sánh đa chiều)
-│       ├── 5_weights.py        # URL: /weights (Điều chỉnh trọng số thời gian thực)
-│       └── 6_export.py         # URL: /export (Trung tâm xuất dữ liệu CSV/JSON/MD)
+│   └── pages/                  # Các trang chức năng (URL RESTful tiếng Anh & 5 Khu vực):
+│       ├── 0_tasks.py          # URL: /tasks (Khu vực 1: Quản lý Bài tập & Nạp Prompt T01-T08)
+│       ├── 1_experiments.py    # URL: /experiments (Khu vực 2: Điều khiển thí nghiệm & Ma trận 144 runs)
+│       ├── 2_inspect.py        # URL: /inspect (Khu vực 4: Chi tiết lần chạy, Side-by-side & Code Viewer)
+│       ├── 3_rating.py         # URL: /rating (Khu vực 5: Chấm điểm ẩn danh 4 nhóm & 1-5 sao)
+│       ├── 4_analytics.py      # URL: /analytics (Khu vực 5: Phân tích so sánh đa chiều & Fleiss' Kappa)
+│       ├── 5_weights.py        # URL: /weights (Khu vực 3: Cấu hình trọng số 6 tiêu chí & Hệ thống IDE)
+│       └── 6_export.py         # URL: /export (Khu vực 5: Trung tâm xuất dữ liệu CSV khóa luận/JSON/MD)
 ├── designs/                    # Ảnh thiết kế chuẩn (Design Ground Truth) cho 8 Tasks
 ├── docs/                       # Tài liệu nghiên cứu & Tài nguyên hình ảnh minh họa
 │   └── screenshots/            # Ảnh chụp giao diện các trang và kiểm chứng responsive

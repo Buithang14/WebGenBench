@@ -1,0 +1,9 @@
+Hãy xây dựng giao diện web cho 'Hồ sơ người dùng & Cài đặt tài khoản' (User Profile & Settings).
+Yêu cầu:
+1. Sidebar hoặc Tab điều hướng: Thông tin chung (Profile), Bảo mật (Security), Thông báo (Notifications).
+2. Phần ảnh đại diện (Avatar) với nút đổi ảnh và xem trước ảnh.
+3. Form nhập thông tin: Họ và tên, Email, Tiêu đề công việc, Giới thiệu bản thân (Bio textarea).
+4. Nhóm nút thao tác: 'Lưu thay đổi' (Save Changes) và 'Hủy' (Cancel).
+5. Khi bấm Lưu, hiện thông báo Toast 'Đã lưu thay đổi thành công!'.
+6. Responsive mượt mà từ 375px đến 1440px.
+7. Đúng 3 file index.html, style.css, script.js tại thư mục gốc.

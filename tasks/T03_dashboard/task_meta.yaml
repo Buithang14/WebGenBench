@@ -1,0 +1,21 @@
+expected_files:
+- index.html
+- style.css
+- script.js
+name: Analytics Dashboard
+prompt_file: tasks/T03_dashboard/prompt.txt
+reference_image: designs/T03_reference.png
+task_id: T03
+technical_requirements:
+- Sử dụng cấu trúc CSS Grid và Flexbox hiện đại.
+- Các thẻ số liệu có màu sắc phân biệt và icon trực quan.
+- Tương tác JavaScript để lọc hoặc cập nhật số liệu mẫu.
+- Chỉ sử dụng 3 file index.html, style.css, script.js tại thư mục gốc.
+title_vi: Bảng điều khiển phân tích số liệu KPI
+ui_requirements:
+- Bố cục dạng Dashboard với Sidebar thu gọn và khu vực nội dung chính.
+- Thanh Header trên cùng có thanh tìm kiếm, thông báo và ảnh đại diện người dùng.
+- 'Hàng thẻ KPI Metrics (4 thẻ): Doanh thu, Người dùng mới, Tỷ lệ chuyển đổi, Đơn
+  hàng.'
+- Khu vực biểu đồ hoặc bảng số liệu thống kê hoạt động gần đây.
+- Thiết kế responsive thích ứng tốt từ màn hình di động đến màn hình rộng.

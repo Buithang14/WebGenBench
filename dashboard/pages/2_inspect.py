@@ -1,5 +1,6 @@
 import streamlit as st
 import json
+import pandas as pd
 from pathlib import Path
 import sys
 
@@ -19,12 +20,16 @@ from dashboard.theme import (
 )
 from dashboard.icons import get_svg
 
-st.set_page_config(page_title="Chi Tiết Lần Chạy - WebGenBench (M3)", page_icon=":material/manage_search:", layout="wide")
+st.set_page_config(
+    page_title="Chi Tiết Lần Chạy - WebGenBench (M3)",
+    page_icon=":material/manage_search:",
+    layout="wide"
+)
 apply_m3_theme()
 
 m3_header(
-    title="Truy Vết & So Sánh Chi Tiết Lần Chạy",
-    subtitle="Màn hình 2 theo Kế hoạch: Đối chiếu 3 ảnh kết xuất với ảnh thiết kế gốc (Ground Truth), thanh tra DOM layout và xem code",
+    title="Khu Vực Soi Chi Tiết Kết Quả (Run Inspector)",
+    subtitle="Kiểm tra sản phẩm sau mỗi lần chạy: So sánh ảnh đối chiếu 3 kích thước, bảng điểm 6 tiêu chí, danh sách lỗi chi tiết và duyệt mã nguồn",
     icon_name="search"
 )
 
@@ -33,11 +38,37 @@ db.init_db()
 runs = db.list_all_runs()
 
 if not runs:
-    m3_banner("Chưa có lượt chạy nào trong cơ sở dữ liệu.", banner_type="warning", icon_name="warning")
+    m3_banner("Chưa có lượt chạy nào trong cơ sở dữ liệu. Hãy thực hiện chạy benchmark trong trang Điều Khiển Thí Nghiệm!", banner_type="warning", icon_name="warning")
     st.stop()
 
-run_ids = [r["run_id"] for r in runs]
-selected_run_id = st.selectbox("Chọn Lượt Chạy (Run ID) cần kiểm tra:", options=run_ids, index=0)
+# 1. Bộ lọc chọn lượt chạy: Chọn run_001, run_002...
+filter_col1, filter_col2, filter_col3 = st.columns([1.5, 1, 1])
+
+all_ides = sorted(list(set(r["ide_name"] for r in runs)))
+all_tasks = sorted(list(set(r["task_id"] for r in runs)))
+
+with filter_col2:
+    f_ide = st.selectbox("Lọc theo IDE:", options=["Tất cả"] + all_ides)
+with filter_col3:
+    f_task = st.selectbox("Lọc theo Bài tập:", options=["Tất cả"] + all_tasks)
+
+filtered_runs = [
+    r for r in runs
+    if (f_ide == "Tất cả" or r["ide_name"] == f_ide)
+    and (f_task == "Tất cả" or r["task_id"] == f_task)
+]
+
+if not filtered_runs:
+    filtered_runs = runs
+
+run_ids = [r["run_id"] for r in filtered_runs]
+with filter_col1:
+    selected_run_id = st.selectbox(
+        "Bộ lọc chọn lượt chạy (Run ID):",
+        options=run_ids,
+        index=0,
+        format_func=lambda rid: f"{rid} - {next((r['ide_name'].upper() for r in runs if r['run_id']==rid), '')} ({next((r['task_id'] for r in runs if r['run_id']==rid), '')})"
+    )
 
 try:
     trace = db.get_run_full_trace(selected_run_id)
@@ -51,38 +82,38 @@ screenshots = trace["screenshots"]
 metrics_info = trace["automatic_metrics"]
 score_info = trace["score"]
 
-# Header tóm tắt thông tin lần chạy M3 Container
+# Header tóm tắt thông tin lần chạy chuẩn Material Design 3
 col_h1, col_h2, col_h3, col_h4 = st.columns(4)
 with col_h1:
-    st.metric("IDE / Agent", f"{run_info['ide_name'].upper()}", run_info.get('agent_name'))
+    st.metric("Công Cụ IDE / Agent", f"{run_info['ide_name'].upper()}", run_info.get('agent_name'))
 with col_h2:
-    st.metric("Bài tập / Điều kiện", f"{run_info['task_id']}", run_info['prompt_condition'])
+    st.metric("Bài Tập & Điều Kiện", f"{run_info['task_id']}", f"{run_info['prompt_condition']}")
 with col_h3:
     st.metric("Tổng Điểm Chuẩn Hóa", f"{score_info.get('weighted_total_score', 0.0):.2f} / 100")
 with col_h4:
-    st.metric("Thời gian / Tổng LOC", f"{run_info['duration_seconds']}s", f"{proj_info.get('total_lines_of_code', 0)} LOC")
+    st.metric("Thời Gian / Dòng Mã (LOC)", f"{run_info['duration_seconds']}s", f"{proj_info.get('total_lines_of_code', 0)} LOC")
 
 st.markdown(f"""
 <div style="background:var(--md-sys-color-surface-container); border-radius:12px; padding:10px 16px; border:1px solid var(--md-sys-color-outline-variant); margin-bottom:1.5rem; font-size:0.88rem; color:#444746; display:flex; align-items:center; gap:8px; box-shadow: var(--md-elevation-1);">
     {get_svg("shield_check", size=18, color="#0B57D0")}
-    <span><b>Mã SHA-256 xác thực:</b> <code>{proj_info.get('sha256_hash', 'N/A')}</code> &nbsp;|&nbsp; 🕒 <b>Thời điểm chạy:</b> <code>{run_info.get('start_time', 'N/A')}</code></span>
+    <span><b>Mã SHA-256 xác thực:</b> <code>{proj_info.get('sha256_hash', 'N/A')}</code> &nbsp;|&nbsp; 🕒 <b>Thời điểm chạy:</b> <code>{run_info.get('start_time', 'N/A')}</code> &nbsp;|&nbsp; 🏷️ <b>Mã ẩn danh:</b> <code>{run_info.get('blind_code', 'N/A')}</code></span>
 </div>
 """, unsafe_allow_html=True)
 
-# 4 Tab chuyên sâu
+# 4 Tab chuyên sâu theo đúng đặc tả Giao diện.docx
 tab_visual, tab_metrics, tab_code, tab_runtime = st.tabs([
-    "So Sánh Thị Giác & Viewports",
-    "Chi Tiết 6 Tiêu Chí & Cảnh Báo",
-    "Mã Nguồn Sinh Ra",
-    "Lỗi Runtime Trình Duyệt"
+    "1. So Sánh Ảnh Trực Quan (Đặt Cạnh Nhau)",
+    "2. Bảng Điểm 6 Tiêu Chí & Danh Sách Lỗi",
+    "3. Trình Xem Code (Code Viewer)",
+    "4. Nhật Ký Lỗi Runtime Trình Duyệt"
 ])
 
-# TAB 1: SO SÁNH THỊ GIÁC
+# ==================== TAB 1: SO SÁNH ẢNH TRỰC QUAN ĐẶT CẠNH NHAU ====================
 with tab_visual:
     st.markdown(f"""
     <div style="display:flex; align-items:center; gap:8px; margin-bottom:12px;">
         {get_svg("visibility", size=22, color="#0B57D0")}
-        <span style="font-weight:700; font-size:1.1rem; color:#1F1F1F;">So Sánh Giao Diện Sinh Ra Với Ảnh Thiết Kế Chuẩn</span>
+        <span style="font-weight:700; font-size:1.15rem; color:#1F1F1F;">So Sánh Ảnh Trực Quan: Ảnh Gốc Mẫu vs 3 Cỡ Màn Hình Thực Tế</span>
     </div>
     """, unsafe_allow_html=True)
     
@@ -93,75 +124,89 @@ with tab_visual:
     except Exception:
         pass
 
-    col_ref, col_actual = st.columns([1, 1.2])
+    viewport_map = {sc["viewport_width"]: sc for sc in screenshots}
+
+    col_ref, col_actual = st.columns([1, 1.2], gap="large")
 
     with col_ref:
         st.markdown(f"""
-        <div style="display:flex; align-items:center; gap:6px; margin-bottom:6px;">
+        <div style="background:var(--md-sys-color-surface-container); border-radius:12px; padding:10px 14px; border:1px solid var(--md-sys-color-outline-variant); margin-bottom:8px; display:flex; align-items:center; gap:6px;">
             {get_svg("trophy", size=18, color="#0B57D0")}
-            <span style="font-weight:700; font-size:1rem; color:#1F1F1F;">Ảnh Thiết Kế Chuẩn (Ground Truth)</span>
+            <span style="font-weight:700; color:#0B57D0; font-size:1rem;">Bên Trái: Ảnh Thiết Kế Mẫu Gốc (Ground Truth)</span>
         </div>
         """, unsafe_allow_html=True)
         if ref_img_path and ref_img_path.exists():
-            st.image(str(ref_img_path), caption=f"Mục tiêu thiết kế ({ref_img_path.name})", use_column_width=True)
+            st.image(str(ref_img_path), caption=f"Mục tiêu thiết kế chuẩn: {ref_img_path.name}", use_container_width=True)
         else:
-            m3_banner("Không tìm thấy ảnh thiết kế chuẩn.", banner_type="info", icon_name="info")
+            m3_banner("Không tìm thấy ảnh thiết kế mẫu gốc.", banner_type="info", icon_name="info")
 
     with col_actual:
         st.markdown(f"""
-        <div style="display:flex; align-items:center; gap:6px; margin-bottom:6px;">
+        <div style="background:var(--md-sys-color-surface-container); border-radius:12px; padding:10px 14px; border:1px solid var(--md-sys-color-outline-variant); margin-bottom:8px; display:flex; align-items:center; gap:6px;">
             {get_svg("desktop", size=18, color="#0B57D0")}
-            <span style="font-weight:700; font-size:1rem; color:#1F1F1F;">Ảnh Kết Xuất Thực Tế (Playwright Headless)</span>
+            <span style="font-weight:700; color:#0B57D0; font-size:1rem;">Bên Phải: 3 Ảnh Thực Tế AI Sinh Ra (Mobile, Tablet, Desktop)</span>
         </div>
         """, unsafe_allow_html=True)
-        
-        viewport_map = {sc["viewport_width"]: sc for sc in screenshots}
-        vp_selected = st.radio(
-            "Chọn kích thước màn hình quan sát:",
-            options=[1440, 768, 375],
-            format_func=lambda x: f"Desktop {x}px" if x == 1440 else (f"Tablet {x}px" if x == 768 else f"Mobile {x}px"),
-            horizontal=True
-        )
 
-        sc_target = viewport_map.get(vp_selected)
-        if sc_target:
-            img_p = ROOT_DIR / sc_target["image_path"]
-            if img_p.exists():
-                st.image(str(img_p), caption=f"Giao diện thực tế tại {vp_selected}px", use_column_width=True)
+        vp_subtab1, vp_subtab2, vp_subtab3, vp_subtab_all = st.tabs([
+            "💻 Máy Tính Bàn (1440px)",
+            "📱 Máy Tính Bảng (768px)",
+            "📱 Điện Thoại (375px)",
+            "🖼️ Đặt Cả 3 Cỡ Cạnh Nhau"
+        ])
+
+        with vp_subtab1:
+            sc_1440 = viewport_map.get(1440)
+            if sc_1440 and (ROOT_DIR / sc_1440["image_path"]).exists():
+                st.image(str(ROOT_DIR / sc_1440["image_path"]), caption="Kết xuất Desktop (1440×900 px)", use_container_width=True)
+                if sc_1440["has_horizontal_overflow"]:
+                    m3_banner("CẢNH BÁO: Bị tràn ngang trên màn hình Desktop 1440px!", banner_type="error", icon_name="error")
             else:
-                m3_banner(f"Không tìm thấy file ảnh tại: {img_p}", banner_type="warning", icon_name="warning")
-            
-            if sc_target["has_horizontal_overflow"]:
-                m3_banner(
-                    "<b>PHÁT HIỆN LỖI TRÀN NGANG (Horizontal Overflow):</b> Trang web bị tràn khung hình khiến xuất hiện thanh cuộn ngang không mong muốn trên thiết bị này!",
-                    banner_type="error",
-                    icon_name="error"
-                )
+                m3_banner("Chưa có ảnh chụp cho Desktop 1440px.", banner_type="info", icon_name="info")
+
+        with vp_subtab2:
+            sc_768 = viewport_map.get(768)
+            if sc_768 and (ROOT_DIR / sc_768["image_path"]).exists():
+                st.image(str(ROOT_DIR / sc_768["image_path"]), caption="Kết xuất Tablet (768×1024 px)", use_container_width=True)
+                if sc_768["has_horizontal_overflow"]:
+                    m3_banner("CẢNH BÁO: Bị tràn ngang trên Tablet 768px!", banner_type="error", icon_name="error")
             else:
-                m3_banner(
-                    "Giao diện đáp ứng tốt (Responsive), không bị lỗi tràn thanh cuộn ngang trên viewport này.",
-                    banner_type="success",
-                    icon_name="check_circle"
-                )
+                m3_banner("Chưa có ảnh chụp cho Tablet 768px.", banner_type="info", icon_name="info")
 
-            audit = sc_target.get("layout_audit", {})
-            issues = audit.get("layout_issues", [])
-            if issues:
-                with st.expander(f"Chi tiết {len(issues)} cảnh báo DOM Layout"):
-                    for iss in issues:
-                        st.write(f"- {iss}")
-        else:
-            m3_banner(f"Chưa có ảnh chụp cho viewport {vp_selected}px.", banner_type="info", icon_name="info")
+        with vp_subtab3:
+            sc_375 = viewport_map.get(375)
+            if sc_375 and (ROOT_DIR / sc_375["image_path"]).exists():
+                st.image(str(ROOT_DIR / sc_375["image_path"]), caption="Kết xuất Mobile (375×812 px)", use_container_width=True)
+                if sc_375["has_horizontal_overflow"]:
+                    m3_banner("CẢNH BÁO: Bị tràn ngang trên Điện thoại 375px!", banner_type="error", icon_name="error")
+            else:
+                m3_banner("Chưa có ảnh chụp cho Mobile 375px.", banner_type="info", icon_name="info")
 
-# TAB 2: CHI TIẾT 6 TIÊU CHÍ & CẢNH BÁO
+        with vp_subtab_all:
+            col_v1, col_v2, col_v3 = st.columns([1, 1.2, 1.6])
+            with col_v1:
+                st.caption("📱 Điện thoại (375px)")
+                if sc_375 and (ROOT_DIR / sc_375["image_path"]).exists():
+                    st.image(str(ROOT_DIR / sc_375["image_path"]), use_container_width=True)
+            with col_v2:
+                st.caption("📱 Máy tính bảng (768px)")
+                if sc_768 and (ROOT_DIR / sc_768["image_path"]).exists():
+                    st.image(str(ROOT_DIR / sc_768["image_path"]), use_container_width=True)
+            with col_v3:
+                st.caption("💻 Máy tính bàn (1440px)")
+                if sc_1440 and (ROOT_DIR / sc_1440["image_path"]).exists():
+                    st.image(str(ROOT_DIR / sc_1440["image_path"]), use_container_width=True)
+
+# ==================== TAB 2: BẢNG ĐIỂM 6 TIÊU CHÍ & DANH SÁCH LỖI BẮT ĐƯỢC ====================
 with tab_metrics:
     st.markdown(f"""
     <div style="display:flex; align-items:center; gap:8px; margin-bottom:12px;">
         {get_svg("analytics", size=22, color="#0B57D0")}
-        <span style="font-weight:700; font-size:1.1rem; color:#1F1F1F;">Bảng Điểm Định Lượng 6 Tiêu Chí (Material 3 Cards)</span>
+        <span style="font-weight:700; font-size:1.15rem; color:#1F1F1F;">Bảng Điểm 6 Tiêu Chí & Danh Sách Lỗi Bắt Được</span>
     </div>
     """, unsafe_allow_html=True)
-    
+    st.caption("Hiện rõ từng tiêu chí đạt bao nhiêu điểm, trọng số đóng góp và các lỗi cụ thể bị trừ điểm.")
+
     metric_labels = {
         "html_validity": ("1. HTML Validity", 0.15),
         "accessibility": ("2. Accessibility (a11y)", 0.20),
@@ -173,6 +218,8 @@ with tab_metrics:
 
     cols = st.columns(3)
     idx = 0
+    all_detected_issues = []
+
     for m_key, (m_label, default_w) in metric_labels.items():
         m_data = metrics_info.get(m_key, {})
         sc = m_data.get("raw_score", 0.0)
@@ -195,73 +242,117 @@ with tab_metrics:
             """, unsafe_allow_html=True)
             
             if issues:
-                with st.expander(f"Cảnh báo ({len(issues)} vấn đề)"):
+                with st.expander(f"Lỗi bị trừ điểm ({len(issues)} vấn đề)"):
                     for iss in issues:
                         st.caption(f"• {iss}")
+                        all_detected_issues.append((m_label, iss))
         idx += 1
 
-# TAB 3: MÃ NGUỒN SINH RA
+    # Bảng tổng hợp toàn bộ danh sách lỗi bắt được
+    st.markdown(f"""
+    <div style="display:flex; align-items:center; gap:8px; margin-top:20px; margin-bottom:8px;">
+        {get_svg("error", size=20, color="#BA1A1A")}
+        <span style="font-weight:700; font-size:1.05rem; color:#BA1A1A;">Danh Sách Toàn Bộ Lỗi Hệ Thống Bắt Được ({len(all_detected_issues)} lỗi)</span>
+    </div>
+    """, unsafe_allow_html=True)
+
+    if all_detected_issues:
+        issues_df = pd.DataFrame(all_detected_issues, columns=["Nhóm Tiêu Chí", "Chi Tiết Lỗi / Vi Phạm"])
+        st.dataframe(issues_df, use_container_width=True, hide_index=True)
+    else:
+        m3_banner("Tuyệt vời! Không phát hiện lỗi nào trên cả 6 tiêu chí.", banner_type="success", icon_name="check_circle")
+
+# ==================== TAB 3: TRÌNH XEM CODE (CODE VIEWER) ====================
 with tab_code:
     st.markdown(f"""
     <div style="display:flex; align-items:center; gap:8px; margin-bottom:12px;">
         {get_svg("code", size=22, color="#0B57D0")}
-        <span style="font-weight:700; font-size:1.1rem; color:#1F1F1F;">Duyệt Toàn Bộ Mã Nguồn Dự Án</span>
+        <span style="font-weight:700; font-size:1.15rem; color:#1F1F1F;">Trình Xem Code (Code Viewer): Xem Trực Tiếp index.html, style.css, script.js</span>
     </div>
     """, unsafe_allow_html=True)
+    st.caption("Xem trực tiếp mã nguồn mà AI Agent đã sinh ra ngay trên giao diện với highlight cú pháp chuẩn.")
+
     proj_dir = ROOT_DIR / "outputs" / selected_run_id / "project"
     
     if proj_dir.exists():
-        files = sorted([p for p in proj_dir.rglob("*") if p.is_file()])
-        if files:
-            file_tabs = st.tabs([f.name for f in files])
-            for f_tab, f_path in zip(file_tabs, files):
+        expected_names = ["index.html", "style.css", "script.js"]
+        available_files = []
+        for name in expected_names:
+            p = proj_dir / name
+            if p.exists():
+                available_files.append(p)
+
+        # Bổ sung các file khác nếu AI sinh thêm
+        all_other_files = [p for p in proj_dir.rglob("*") if p.is_file() and p not in available_files]
+        all_display_files = available_files + all_other_files
+
+        if all_display_files:
+            file_tabs = st.tabs([f"📄 {f.name}" for f in all_display_files])
+            for f_tab, f_path in zip(file_tabs, all_display_files):
                 with f_tab:
                     ext = f_path.suffix.lower()
                     lang = "html" if ext == ".html" else ("css" if ext == ".css" else ("javascript" if ext == ".js" else "text"))
                     content = f_path.read_text(encoding="utf-8", errors="ignore")
-                    st.caption(f"Đường dẫn: `{f_path.relative_to(ROOT_DIR)}` ({len(content.splitlines())} dòng)")
-                    st.code(content, language=lang)
+                    
+                    c_info1, c_info2 = st.columns([3, 1])
+                    with c_info1:
+                        st.caption(f"Đường dẫn: `{f_path.relative_to(ROOT_DIR)}` &nbsp;|&nbsp; Kích thước: `{len(content.splitlines())} dòng ({len(content)} bytes)`")
+                    with c_info2:
+                        st.download_button(f"Tải {f_path.name}", data=content, file_name=f_path.name, use_container_width=True)
+                        
+                    st.code(content, language=lang, line_numbers=True)
         else:
             m3_banner("Không tìm thấy file mã nguồn nào trong thư mục project.", banner_type="info", icon_name="info")
     else:
-        m3_banner("Thư mục project không tồn tại.", banner_type="warning", icon_name="warning")
+        m3_banner(f"Thư mục project không tồn tại tại: {proj_dir}", banner_type="warning", icon_name="warning")
 
-# TAB 4: LỖI RUNTIME TRÌNH DUYỆT
+# ==================== TAB 4: NHẬT KÝ LỖI RUNTIME ====================
 with tab_runtime:
     st.markdown(f"""
     <div style="display:flex; align-items:center; gap:8px; margin-bottom:12px;">
-        {get_svg("warning", size=22, color="#0B57D0")}
-        <span style="font-weight:700; font-size:1.1rem; color:#1F1F1F;">Báo Cáo Runtime từ Playwright Chromium</span>
+        {get_svg("bug_report", size=22, color="#0B57D0")}
+        <span style="font-weight:700; font-size:1.15rem; color:#1F1F1F;">Nhật Ký Lỗi Runtime Thu Thập Từ Playwright</span>
     </div>
     """, unsafe_allow_html=True)
-    report_file = ROOT_DIR / "outputs" / selected_run_id / "render_report.json"
-    
-    if report_file.exists():
-        report_data = json.loads(report_file.read_text(encoding="utf-8"))
-        errs = report_data.get("runtime_errors", {})
-        
-        c_errs = errs.get("console_errors", [])
-        p_errs = errs.get("page_errors", [])
-        f_reqs = errs.get("failed_requests", [])
 
-        col_e1, col_e2, col_e3 = st.columns(3)
-        col_e1.metric("Console Errors", len(c_errs))
-        col_e2.metric("Page JS Errors", len(p_errs))
-        col_e3.metric("Failed Network Requests", len(f_reqs))
+    render_report_path = ROOT_DIR / "outputs" / selected_run_id / "render_report.json"
+    if render_report_path.exists():
+        try:
+            report_data = json.loads(render_report_path.read_text(encoding="utf-8"))
+            errs = report_data.get("runtime_errors", {})
 
-        if not c_errs and not p_errs and not f_reqs:
-            m3_banner("Hoàn hảo! Không có bất kỳ lỗi JavaScript runtime hay request tài nguyên nào bị lỗi 404/500.", banner_type="success", icon_name="check_circle")
-        else:
-            if c_errs:
-                st.error("Console Errors:")
-                for e in c_errs:
-                    st.code(e)
-            if p_errs:
-                st.error("Page Errors:")
-                for e in p_errs:
-                    st.code(e)
-            if f_reqs:
-                st.error("Failed Requests:")
-                st.json(f_reqs)
+            console_errs = errs.get("console_errors", [])
+            page_errs = errs.get("page_errors", [])
+            failed_reqs = errs.get("failed_requests", [])
+
+            c1, c2, c3 = st.columns(3)
+            with c1:
+                m3_card(value=str(len(console_errs)), label="Console Errors", secondary="Lỗi ghi nhận trong console", badge_type="error" if console_errs else "success", badge=str(len(console_errs)), icon_name="error")
+            with c2:
+                m3_card(value=str(len(page_errs)), label="Page Exceptions (JS)", secondary="Ngoại lệ JavaScript chưa bắt", badge_type="error" if page_errs else "success", badge=str(len(page_errs)), icon_name="warning")
+            with c3:
+                m3_card(value=str(len(failed_reqs)), label="Failed Requests", secondary="Lỗi tải ảnh/CDN/404", badge_type="error" if failed_reqs else "success", badge=str(len(failed_reqs)), icon_name="info")
+
+            st.markdown("<br>", unsafe_allow_html=True)
+            if page_errs:
+                st.error("Danh sách ngoại lệ JavaScript (Page Errors):")
+                for pe in page_errs:
+                    st.code(pe, language="text")
+
+            if console_errs:
+                st.warning("Danh sách thông điệp Console Errors:")
+                for ce in console_errs:
+                    st.code(ce, language="text")
+
+            if failed_reqs:
+                st.warning("Danh sách yêu cầu mạng thất bại (Failed Network Requests):")
+                for fr in failed_reqs:
+                    st.write(f"- {fr}")
+
+            if not page_errs and not console_errs and not failed_reqs:
+                m3_banner("Tuyệt vời! Không có bất kỳ lỗi Runtime nào được ghi nhận trong quá trình kết xuất trình duyệt.", banner_type="success", icon_name="check_circle")
+
+        except Exception as e:
+            st.error(f"Lỗi đọc render_report.json: {e}")
     else:
-        m3_banner("Chưa có file render_report.json cho lượt chạy này.", banner_type="info", icon_name="info")
+        m3_banner("Chưa có báo cáo render_report.json cho lượt chạy này.", banner_type="info", icon_name="info")
